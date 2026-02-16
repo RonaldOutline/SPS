@@ -7,6 +7,9 @@ import type {
   NavLink,
   FooterColumn,
   SustainabilityPoint,
+  FAQItem,
+  Certificate,
+  JobPosition,
 } from "@/types";
 
 export const NAV_LINKS: NavLink[] = [
@@ -271,3 +274,80 @@ export const COMPANY = {
     "Estonia's leading commercial cleaning company, delivering premium facility maintenance solutions for corporate clients since 2009.",
   copyright: `© ${new Date().getFullYear()} SPS Professional Cleaning. All rights reserved.`,
 };
+
+export const FAQ_ITEMS: FAQItem[] = [
+  {
+    question: "What types of commercial properties do you service?",
+    answer:
+      "We service a wide range of commercial properties including corporate offices, business centers, retail chains, logistics warehouses, healthcare facilities, hotels, educational institutions, and government buildings. Each property type receives a tailored cleaning protocol designed for its specific needs.",
+  },
+  {
+    question: "How quickly can you start servicing a new client?",
+    answer:
+      "After an initial on-site consultation — which we can schedule within 48 hours — we typically begin regular service within one week. For urgent or post-construction cleanups, we can mobilize our team within 24 hours.",
+  },
+  {
+    question: "Do you use eco-friendly cleaning products?",
+    answer:
+      "Yes, sustainability is at the core of our operations. We exclusively use eco-certified cleaning products that are safe for both people and the environment. We hold ISO 14001 certification and maintain rigorous carbon footprint tracking across all our operations.",
+  },
+  {
+    question: "What does your quality assurance process look like?",
+    answer:
+      "Our 4-step quality assurance includes regular on-site inspections, client satisfaction surveys, digital checklists verified after each cleaning session, and monthly performance reports. We maintain a 99.7% client satisfaction rate through this rigorous process.",
+  },
+  {
+    question: "Can I customize the cleaning schedule for my facility?",
+    answer:
+      "Absolutely. We offer fully flexible scheduling — daily, weekly, bi-weekly, or monthly — tailored to your operational hours. We can work during off-hours, weekends, or holidays to minimize disruption to your business.",
+  },
+  {
+    question: "What are your pricing models?",
+    answer:
+      "We offer transparent pricing based on facility size, cleaning frequency, and specific requirements. We provide free on-site estimates and can work with monthly contracts or per-visit arrangements. Contact us for a customized quote.",
+  },
+];
+
+export const CERTIFICATES: Certificate[] = [
+  {
+    title: "ISO 9001:2015",
+    description: "Quality Management System certified, ensuring consistent high-quality cleaning services across all operations.",
+    icon: "ShieldCheck",
+  },
+  {
+    title: "ISO 14001",
+    description: "Environmental Management System certified, demonstrating our commitment to sustainable cleaning practices.",
+    icon: "Leaf",
+  },
+  {
+    title: "ISSA CIMS",
+    description: "Cleaning Industry Management Standard certified — the gold standard for professional cleaning organizations.",
+    icon: "Award",
+  },
+  {
+    title: "5-Year Warranty",
+    description: "All our deep cleaning and restoration services come with a comprehensive 5-year warranty on workmanship.",
+    icon: "BadgeCheck",
+  },
+];
+
+export const JOB_POSITIONS: JobPosition[] = [
+  {
+    title: "Senior Cleaning Specialist",
+    location: "Tallinn, Estonia",
+    type: "Full-time",
+    description: "Lead cleaning teams across premium corporate facilities. 3+ years experience required.",
+  },
+  {
+    title: "Quality Assurance Inspector",
+    location: "Tallinn & Tartu",
+    type: "Full-time",
+    description: "Conduct on-site inspections and maintain our industry-leading satisfaction standards.",
+  },
+  {
+    title: "Operations Coordinator",
+    location: "Tallinn, Estonia",
+    type: "Full-time",
+    description: "Coordinate schedules, manage teams, and ensure seamless day-to-day cleaning operations.",
+  },
+];

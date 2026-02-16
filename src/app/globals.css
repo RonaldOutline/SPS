@@ -55,6 +55,15 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* Hero glassmorphism panel */
+.glass-hero {
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
 /* Fallback for browsers without backdrop-filter */
 @supports not (backdrop-filter: blur()) {
   .glass {
@@ -66,6 +75,9 @@ h1, h2, h3, h4, h5, h6 {
   .glass-dark {
     background: rgba(15, 23, 42, 0.95);
   }
+  .glass-hero {
+    background: rgba(15, 23, 42, 0.75);
+  }
 }
 
 /* Gradient text */
@@ -74,6 +86,22 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Shimmer animation for hero text (light variant) */
+.shimmer-hero {
+  background: linear-gradient(
+    90deg,
+    #38bdf8 0%,
+    #22d3ee 33%,
+    #67e8f9 66%,
+    #38bdf8 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s ease-in-out infinite;
 }
 
 /* Shimmer animation for highlighted text */

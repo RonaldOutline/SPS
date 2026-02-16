@@ -18,62 +18,33 @@ export default function Industries() {
         subtitle="Specialized cleaning expertise across diverse sectors, tailored to each industry's unique requirements."
       />
 
-      {/* Desktop: Horizontal scroll snap */}
-      <div ref={ref} className="hidden md:block">
-        <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 scrollbar-hide" style={{ scrollbarWidth: "none" }}>
-          {INDUSTRIES.map((industry, i) => (
-            <motion.article
-              key={industry.name}
-              className="industry-card snap-start shrink-0 w-[300px] lg:w-[320px] h-[420px] relative rounded-2xl overflow-hidden group cursor-pointer"
-              initial={{ opacity: 0, x: 60 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 60 }}
-              transition={{ duration: 0.5, delay: 0.08 * i, ease: "easeOut" }}
-            >
-              <Image
-                src={industry.image}
-                alt={industry.name}
-                fill
-                className="object-cover industry-card-img"
-                sizes="320px"
-              />
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent group-hover:from-black/60 group-hover:via-black/20 transition-all duration-500" />
-
-              {/* Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <span className="inline-block glass text-xs font-semibold px-3 py-1 rounded-full text-white mb-3">
-                  {industry.clientCount} Clients
-                </span>
-                <h3 className="font-outfit font-bold text-xl text-white mb-1">
-                  {industry.name}
-                </h3>
-                <p className="text-white/80 text-sm leading-relaxed">
-                  {industry.description}
-                </p>
-              </div>
-            </motion.article>
-          ))}
-        </div>
-      </div>
-
-      {/* Mobile: Vertical stack */}
-      <div className="md:hidden space-y-4">
-        {INDUSTRIES.slice(0, 6).map((industry, i) => (
+      <div
+        ref={ref}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+      >
+        {INDUSTRIES.map((industry, i) => (
           <motion.article
             key={industry.name}
-            className="industry-card relative rounded-2xl overflow-hidden h-[260px] group"
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.5, delay: 0.08 * i, ease: "easeOut" }}
+            className="industry-card relative rounded-2xl overflow-hidden h-[320px] sm:h-[360px] group cursor-pointer"
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.06 * i,
+              ease: "easeOut",
+            }}
           >
             <Image
               src={industry.image}
               alt={industry.name}
               fill
               className="object-cover industry-card-img"
-              sizes="100vw"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent group-hover:from-black/60 group-hover:via-black/20 transition-all duration-500" />
+
+            {/* Content */}
             <div className="absolute bottom-0 left-0 right-0 p-5">
               <span className="inline-block glass text-xs font-semibold px-3 py-1 rounded-full text-white mb-2">
                 {industry.clientCount} Clients
@@ -81,7 +52,9 @@ export default function Industries() {
               <h3 className="font-outfit font-bold text-lg text-white mb-1">
                 {industry.name}
               </h3>
-              <p className="text-white/80 text-sm">{industry.description}</p>
+              <p className="text-white/80 text-sm leading-relaxed">
+                {industry.description}
+              </p>
             </div>
           </motion.article>
         ))}

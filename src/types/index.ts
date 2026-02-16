@@ -46,3 +46,21 @@ export interface FooterColumn {
 export interface SustainabilityPoint {
   text: string;
 }
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export interface Certificate {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+export interface JobPosition {
+  title: string;
+  location: string;
+  type: string;
+  description: string;
+}
