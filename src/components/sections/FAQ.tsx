@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import Section from "@/components/layout/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -68,13 +69,27 @@ export default function FAQ() {
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
 
   return (
-    <Section id="faq">
+    <Section id="faq" className="relative overflow-hidden">
+      {/* Decorative background image */}
+      <div className="absolute bottom-0 left-0 w-80 h-80 opacity-[0.05] pointer-events-none hidden lg:block">
+        <Image
+          src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80"
+          alt=""
+          fill
+          className="object-cover rounded-full"
+          sizes="320px"
+        />
+      </div>
+
+      {/* Dot pattern */}
+      <div className="absolute inset-0 dot-pattern opacity-30 pointer-events-none" />
+
       <SectionHeading
         title="Frequently Asked Questions"
         subtitle="Everything you need to know about our professional cleaning services."
       />
 
-      <div ref={ref} className="max-w-3xl mx-auto space-y-3">
+      <div ref={ref} className="max-w-3xl mx-auto space-y-3 relative z-10">
         {isInView &&
           FAQ_ITEMS.map((item, i) => (
             <FAQAccordionItem

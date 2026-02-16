@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 import { Phone } from "lucide-react";
 import Section from "@/components/layout/Section";
 import Container from "@/components/layout/Container";
@@ -16,7 +17,7 @@ export default function CTABanner() {
       <Container>
         <motion.div
           ref={ref}
-          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-accent-primary to-accent-secondary py-16 md:py-20 px-8 md:px-16 text-center"
+          className="relative overflow-hidden rounded-3xl py-16 md:py-20 px-8 md:px-16 text-center"
           initial={{ scale: 0.95, opacity: 0 }}
           animate={
             isInView
@@ -25,6 +26,18 @@ export default function CTABanner() {
           }
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
+          {/* Background image */}
+          <div className="absolute inset-0">
+            <Image
+              src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=80"
+              alt="Modern office space"
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/90 to-accent-secondary/90" />
+          </div>
+
           {/* Background decoration */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute -top-1/2 -right-1/4 w-96 h-96 rounded-full bg-white/10 blur-3xl" />

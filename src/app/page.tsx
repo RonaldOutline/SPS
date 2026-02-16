@@ -17,6 +17,7 @@ import FAQ from "@/components/sections/FAQ";
 import Careers from "@/components/sections/Careers";
 import QuoteForm from "@/components/sections/QuoteForm";
 import InlineCTA from "@/components/sections/InlineCTA";
+import BeforeAfter from "@/components/sections/BeforeAfter";
 
 export default function Home() {
   return (
@@ -46,6 +47,7 @@ export default function Home() {
               subtitle="Request a specialized quote for your sector."
             />
 
+            <BeforeAfter />
             <VideoBlock />
             <Process />
             <Certificates />

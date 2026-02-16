@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 import { CheckCircle, Leaf } from "lucide-react";
 import { SUSTAINABILITY_POINTS } from "@/lib/constants";
 import Section from "@/components/layout/Section";
@@ -60,54 +61,50 @@ export default function Sustainability() {
           </ScrollReveal>
         </div>
 
-        {/* Right: Decorative graphic */}
+        {/* Right: Real image with overlays */}
         <ScrollReveal direction="right" className="flex items-center justify-center">
-          <div className="relative w-72 h-72 md:w-96 md:h-96">
-            {/* Animated gradient circles */}
-            <motion.div
-              className="absolute inset-0 rounded-full"
-              style={{
-                background:
-                  "radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)",
-              }}
-              animate={
-                isInView
-                  ? { scale: [1, 1.1, 1], rotate: [0, 180, 360] }
-                  : {}
-              }
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            />
-            <motion.div
-              className="absolute inset-6 rounded-full"
-              style={{
-                background:
-                  "radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%)",
-              }}
-              animate={
-                isInView
-                  ? { scale: [1.1, 1, 1.1], rotate: [360, 180, 0] }
-                  : {}
-              }
-              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            />
-
-            {/* Center icon */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="glass rounded-full p-8">
-                <Leaf className="w-16 h-16 text-success" />
-              </div>
+          <div className="relative w-full max-w-lg">
+            {/* Main image */}
+            <div className="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl">
+              <Image
+                src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=80"
+                alt="Green sustainable environment"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/40 via-transparent to-emerald-900/10" />
             </div>
+
+            {/* Accent image offset */}
+            <motion.div
+              className="absolute -bottom-6 -left-6 w-40 h-40 rounded-2xl overflow-hidden shadow-xl border-4 border-white"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+            >
+              <Image
+                src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=400&q=80"
+                alt="Eco cleaning products"
+                fill
+                className="object-cover"
+                sizes="160px"
+              />
+            </motion.div>
 
             {/* Floating badges */}
             <motion.div
-              className="absolute top-8 right-4 glass-heavy rounded-lg px-3 py-2 text-xs font-semibold text-text-primary"
+              className="absolute top-6 -right-4 glass-heavy rounded-xl px-4 py-3 shadow-lg"
               animate={isInView ? { y: [0, -8, 0] } : {}}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
-              🌿 Eco Products
+              <div className="flex items-center gap-2">
+                <Leaf className="w-5 h-5 text-success" />
+                <span className="text-sm font-bold text-text-primary">Eco Products</span>
+              </div>
             </motion.div>
             <motion.div
-              className="absolute bottom-12 left-0 glass-heavy rounded-lg px-3 py-2 text-xs font-semibold text-text-primary"
+              className="absolute bottom-20 -right-6 glass-heavy rounded-xl px-4 py-3 shadow-lg"
               animate={isInView ? { y: [0, 8, 0] } : {}}
               transition={{
                 duration: 4,
@@ -116,7 +113,10 @@ export default function Sustainability() {
                 delay: 1,
               }}
             >
-              ♻️ Zero Waste
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-success animate-pulse" />
+                <span className="text-sm font-bold text-text-primary">Zero Waste Goal</span>
+              </div>
             </motion.div>
           </div>
         </ScrollReveal>

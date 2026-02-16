@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 import {
   ShieldCheck,
   Leaf,
@@ -26,7 +27,18 @@ export default function Certificates() {
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
 
   return (
-    <Section id="certificates">
+    <Section id="certificates" className="relative overflow-hidden">
+      {/* Background decorative image */}
+      <div className="absolute top-0 right-0 w-1/3 h-full opacity-[0.04] pointer-events-none hidden lg:block">
+        <Image
+          src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80"
+          alt=""
+          fill
+          className="object-cover"
+          sizes="33vw"
+        />
+      </div>
+
       <SectionHeading
         title="Warranty & Certificates"
         subtitle="Our quality is backed by internationally recognized certifications and comprehensive warranties."
@@ -34,7 +46,7 @@ export default function Certificates() {
 
       <div
         ref={ref}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 relative z-10"
       >
         {CERTIFICATES.map((cert, i) => {
           const Icon = iconMap[cert.icon] || ShieldCheck;
@@ -69,7 +81,7 @@ export default function Certificates() {
       </div>
 
       <motion.div
-        className="text-center"
+        className="text-center relative z-10"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.5, delay: 0.5 }}

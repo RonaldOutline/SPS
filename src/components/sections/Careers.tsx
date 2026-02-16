@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 import { MapPin, Clock, ArrowRight, Users } from "lucide-react";
 import Section from "@/components/layout/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -29,6 +30,27 @@ export default function Careers() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="space-y-6"
           >
+            {/* Team image */}
+            <div className="relative rounded-2xl overflow-hidden aspect-[16/9] mb-6 shadow-lg">
+              <Image
+                src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&q=80"
+                alt="SPS team working together"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent" />
+              <div className="absolute bottom-4 left-4 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center">
+                  <Users className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-white font-outfit font-bold text-sm">150+ Team Members</p>
+                  <p className="text-white/70 text-xs">Across Estonia</p>
+                </div>
+              </div>
+            </div>
+
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 shrink-0 rounded-xl bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center">
                 <Users className="w-6 h-6 text-white" />
