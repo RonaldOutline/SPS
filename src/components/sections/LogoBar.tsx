@@ -15,7 +15,8 @@ function LogoPlaceholder({ name }: { name: string }) {
   );
 }
 
-const LOGOS_TRIPLE = [...LOGO_COMPANIES, ...LOGO_COMPANIES, ...LOGO_COMPANIES];
+// Two copies so -50% translateX = exactly one set → seamless loop
+const LOGOS_DOUBLE = [...LOGO_COMPANIES, ...LOGO_COMPANIES];
 
 export default function LogoBar() {
   const ref = useRef<HTMLDivElement>(null);
@@ -37,7 +38,7 @@ export default function LogoBar() {
           {/* Infinite marquee — all screen sizes */}
           <div className="relative overflow-hidden">
             <div className="animate-marquee flex items-center w-max">
-              {LOGOS_TRIPLE.map((name, i) => (
+              {LOGOS_DOUBLE.map((name, i) => (
                 <LogoPlaceholder key={`${name}-${i}`} name={name} />
               ))}
             </div>
