@@ -1,15 +1,73 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import { NAV_LINKS, COMPANY } from "@/lib/constants";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { COMPANY } from "@/lib/constants";
 import Container from "./Container";
 import Button from "@/components/ui/Button";
+
+const MEGA_MENU_COLUMNS = [
+  {
+    title: "Hooldusteenused",
+    items: [
+      "Kontori koristus",
+      "Kaubanduspindade koristus",
+      "Koolide koristus",
+      "Tööstushoonete koristus",
+    ],
+  },
+  {
+    title: "Eripuhastustööd",
+    items: [
+      "Akende pesu",
+      "Vaipade puhastus",
+      "Põrandate hooldus",
+      "Ehitusjärgne koristus",
+      "Ehitusprahi äravedu",
+      "Eskalaatorite süvapuhastus",
+    ],
+  },
+  {
+    title: "Välikoristus",
+    items: [
+      "Fassaadipesu",
+      "Graffiti eemaldamine",
+      "Tänavakivide pesu",
+      "Lumekoristus",
+    ],
+  },
+  {
+    title: "Remonditööd",
+    items: [
+      "Elektritööd",
+      "Torutööd",
+      "Siseviimistlus",
+      "Sanitaarremont",
+      "Plaatimistööd",
+      "Ventilatsioonide ehitus / hooldus",
+      "Katuse remont",
+      "Lammutustööd",
+    ],
+  },
+];
+
+const TOP_NAV = [
+  { label: "Teenused", hasMega: true },
+  { label: "Meist", href: "#why-us" },
+  { label: "Valdkonnad", href: "#industries" },
+  { label: "Protsess", href: "#process" },
+  { label: "Tagasiside", href: "#testimonials" },
+  { label: "Kontakt", href: "#cta" },
+];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [megaOpen, setMegaOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const megaRef = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -28,6 +86,15 @@ export default function Navbar() {
     };
   }, [mobileOpen]);
 
+  const openMega = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setMegaOpen(true);
+  };
+
+  const scheduleMegaClose = () => {
+    closeTimer.current = setTimeout(() => setMegaOpen(false), 150);
+  };
+
   return (
     <>
       <motion.header
@@ -43,7 +110,7 @@ export default function Navbar() {
         <Container>
           <nav className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <a href="#" className="flex items-center gap-2">
+            <a href="#" className="flex items-center gap-2 shrink-0">
               <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center">
                 <span className="text-white font-outfit font-bold text-sm">
                   {COMPANY.name}
@@ -55,22 +122,41 @@ export default function Navbar() {
             </a>
 
             {/* Desktop Nav */}
-            <div className="hidden lg:flex items-center gap-8">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="link-underline text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
+            <div className="hidden lg:flex items-center gap-6" ref={megaRef}>
+              {TOP_NAV.map((link) =>
+                link.hasMega ? (
+                  <div
+                    key={link.label}
+                    className="relative"
+                    onMouseEnter={openMega}
+                    onMouseLeave={scheduleMegaClose}
+                  >
+                    <button
+                      className="flex items-center gap-1 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
+                      onClick={() => setMegaOpen((v) => !v)}
+                    >
+                      {link.label}
+                      <ChevronDown
+                        className={`w-4 h-4 transition-transform duration-200 ${megaOpen ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                  </div>
+                ) : (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="link-underline text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                )
+              )}
             </div>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:block">
+            <div className="hidden lg:block shrink-0">
               <Button variant="primary" size="sm" href="#cta">
-                Get a Quote
+                Küsi pakkumist
               </Button>
             </div>
 
@@ -88,6 +174,49 @@ export default function Navbar() {
             </button>
           </nav>
         </Container>
+
+        {/* Mega Menu Panel */}
+        <AnimatePresence>
+          {megaOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="hidden lg:block absolute top-full left-0 right-0 glass-heavy shadow-[0_16px_48px_rgba(0,0,0,0.08)] border-t border-white/30"
+              onMouseEnter={openMega}
+              onMouseLeave={scheduleMegaClose}
+            >
+              <Container>
+                <div className="grid grid-cols-4 gap-0 py-6">
+                  {MEGA_MENU_COLUMNS.map((col, ci) => (
+                    <div
+                      key={col.title}
+                      className={`px-6 ${ci < MEGA_MENU_COLUMNS.length - 1 ? "border-r border-gray-100" : ""}`}
+                    >
+                      <h3 className="font-outfit font-semibold text-sm text-accent-primary uppercase tracking-wider mb-3">
+                        {col.title}
+                      </h3>
+                      <ul className="space-y-2">
+                        {col.items.map((item) => (
+                          <li key={item}>
+                            <a
+                              href="#services"
+                              className="text-sm text-text-secondary hover:text-text-primary hover:translate-x-1 inline-block transition-all duration-150"
+                              onClick={() => setMegaOpen(false)}
+                            >
+                              {item}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </Container>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.header>
 
       {/* Mobile Menu Overlay */}
@@ -98,28 +227,77 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 glass-heavy lg:hidden"
+            className="fixed inset-0 z-40 glass-heavy lg:hidden overflow-y-auto"
           >
-            <div className="flex flex-col items-center justify-center h-full gap-6">
-              {NAV_LINKS.map((link, i) => (
-                <motion.a
-                  key={link.label}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ delay: 0.05 * i, duration: 0.3 }}
-                  className="text-2xl font-outfit font-semibold text-text-primary hover:text-accent-primary transition-colors"
-                >
-                  {link.label}
-                </motion.a>
-              ))}
+            <div className="flex flex-col items-center justify-start pt-24 pb-12 px-6 gap-4 min-h-full">
+              {TOP_NAV.map((link, i) =>
+                link.hasMega ? (
+                  <div key={link.label} className="w-full max-w-sm">
+                    <motion.button
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ delay: 0.05 * i, duration: 0.3 }}
+                      onClick={() => setMobileServicesOpen((v) => !v)}
+                      className="w-full flex items-center justify-between text-xl font-outfit font-semibold text-text-primary hover:text-accent-primary transition-colors py-2"
+                    >
+                      {link.label}
+                      <ChevronDown
+                        className={`w-5 h-5 transition-transform ${mobileServicesOpen ? "rotate-180" : ""}`}
+                      />
+                    </motion.button>
+                    <AnimatePresence>
+                      {mobileServicesOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="grid grid-cols-2 gap-x-4 gap-y-3 pt-3 pb-2 pl-2">
+                            {MEGA_MENU_COLUMNS.map((col) => (
+                              <div key={col.title}>
+                                <p className="text-xs font-semibold text-accent-primary uppercase tracking-wider mb-1">
+                                  {col.title}
+                                </p>
+                                {col.items.map((item) => (
+                                  <a
+                                    key={item}
+                                    href="#services"
+                                    onClick={() => setMobileOpen(false)}
+                                    className="block text-sm text-text-secondary hover:text-text-primary py-0.5"
+                                  >
+                                    {item}
+                                  </a>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ delay: 0.05 * i, duration: 0.3 }}
+                    className="text-xl font-outfit font-semibold text-text-primary hover:text-accent-primary transition-colors w-full max-w-sm py-2"
+                  >
+                    {link.label}
+                  </motion.a>
+                )
+              )}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                transition={{ delay: 0.3, duration: 0.3 }}
+                transition={{ delay: 0.35, duration: 0.3 }}
                 className="mt-4"
               >
                 <Button
@@ -128,7 +306,7 @@ export default function Navbar() {
                   href="#cta"
                   onClick={() => setMobileOpen(false)}
                 >
-                  Get a Quote
+                  Küsi pakkumist
                 </Button>
               </motion.div>
             </div>
