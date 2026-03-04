@@ -14,8 +14,8 @@ export default function Industries() {
   return (
     <Section id="industries">
       <SectionHeading
-        title="Industries We Serve"
-        subtitle="Specialized cleaning expertise across diverse sectors, tailored to each industry's unique requirements."
+        title="Valdkonnad, mida teenindame"
+        subtitle="Spetsialiseeritud puhastusekspertiis erinevates sektorites, kohandatud iga valdkonna unikaalsetele nõuetele."
       />
 
       {/* Desktop: Horizontal scroll snap */}
@@ -42,7 +42,7 @@ export default function Industries() {
               {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <span className="inline-block glass text-xs font-semibold px-3 py-1 rounded-full text-white mb-3">
-                  {industry.clientCount} Clients
+                  {industry.clientCount} klienti
                 </span>
                 <h3 className="font-outfit font-bold text-xl text-white mb-1">
                   {industry.name}
@@ -76,7 +76,7 @@ export default function Industries() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-5">
               <span className="inline-block glass text-xs font-semibold px-3 py-1 rounded-full text-white mb-2">
-                {industry.clientCount} Clients
+                {industry.clientCount} klienti
               </span>
               <h3 className="font-outfit font-bold text-lg text-white mb-1">
                 {industry.name}

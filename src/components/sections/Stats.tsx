@@ -29,8 +29,8 @@ export default function Stats() {
                 <span className="text-white font-bold text-sm">★</span>
               </div>
               <div>
-                <p className="text-sm font-bold text-text-primary">4.9/5 Rating</p>
-                <p className="text-xs text-text-muted">Google Reviews</p>
+                <p className="text-sm font-bold text-text-primary">4.9/5 Reiting</p>
+                <p className="text-xs text-text-muted">Google arvustused</p>
               </div>
             </div>
           </div>
@@ -40,14 +40,13 @@ export default function Stats() {
         <div className="lg:col-span-2 space-y-2">
           <ScrollReveal direction="right">
             <span className="text-xs font-semibold tracking-[0.15em] uppercase text-accent-primary">
-              Why Choose Us
+              Miks valida meid
             </span>
             <h2 className="font-outfit font-bold text-3xl md:text-4xl text-text-primary mt-2 mb-4">
-              Trusted by Hundreds of Businesses
+              20 aastase ajalooga koristusfirma
             </h2>
             <p className="text-text-secondary leading-relaxed mb-8">
-              With over 15 years of experience, we&apos;ve built a reputation for
-              reliability, precision, and excellence in commercial cleaning services.
+              Koristusfirma SPS Grupp ajalugu sai alguse 2006. aastal. Tänaseks oleme kasvanud üheks Harjumaa juhtivaks kinnisvarahaldus ettevõtteks. Meil töötab üle 200 töötaja ning suudame leida optimaalse lahenduse nii suurtele, kui ka väga suurtele ettevõtetele.
             </p>
           </ScrollReveal>
 

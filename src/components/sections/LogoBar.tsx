@@ -7,42 +7,37 @@ import Container from "@/components/layout/Container";
 
 function LogoPlaceholder({ name }: { name: string }) {
   return (
-    <div className="flex items-center justify-center px-6 md:px-8 py-2 min-w-[120px]">
-      <span className="text-text-muted font-outfit font-semibold text-base md:text-lg whitespace-nowrap tracking-wide opacity-50 hover:opacity-100 hover:text-text-secondary transition-all duration-300 hover:scale-105">
+    <div className="flex items-center justify-center px-8 py-2 min-w-[140px] shrink-0">
+      <span className="text-text-muted font-outfit font-bold text-base md:text-lg whitespace-nowrap tracking-widest opacity-40 hover:opacity-90 hover:text-accent-primary transition-all duration-300">
         {name}
       </span>
     </div>
   );
 }
 
+const LOGOS_TRIPLE = [...LOGO_COMPANIES, ...LOGO_COMPANIES, ...LOGO_COMPANIES];
+
 export default function LogoBar() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
 
   return (
-    <section id="trusted-by" className="relative py-12 md:py-16" ref={ref}>
+    <section id="trusted-by" className="relative py-10 md:py-14" ref={ref}>
       <Container>
         <motion.div
-          className="glass rounded-2xl py-8 md:py-10 px-6 overflow-hidden"
+          className="glass rounded-2xl py-7 md:py-9 overflow-hidden relative"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <p className="text-center text-xs font-semibold tracking-[0.15em] uppercase text-text-muted mb-6">
-            Trusted by Industry Leaders
-          </p>
+          {/* Gradient fade edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-white/55 to-transparent pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-white/55 to-transparent pointer-events-none" />
 
-          {/* Desktop: static row */}
-          <div className="hidden md:flex items-center justify-between gap-4">
-            {LOGO_COMPANIES.map((name) => (
-              <LogoPlaceholder key={name} name={name} />
-            ))}
-          </div>
-
-          {/* Mobile: infinite marquee */}
-          <div className="md:hidden relative overflow-hidden">
-            <div className="animate-marquee flex items-center gap-8 w-max">
-              {[...LOGO_COMPANIES, ...LOGO_COMPANIES].map((name, i) => (
+          {/* Infinite marquee — all screen sizes */}
+          <div className="relative overflow-hidden">
+            <div className="animate-marquee flex items-center w-max">
+              {LOGOS_TRIPLE.map((name, i) => (
                 <LogoPlaceholder key={`${name}-${i}`} name={name} />
               ))}
             </div>

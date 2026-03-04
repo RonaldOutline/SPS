@@ -68,7 +68,7 @@ export default function Footer() {
             {/* Col 4: Contact */}
             <div>
               <h3 className="font-outfit font-semibold text-sm mb-4">
-                Contact Us
+                Kontakt
               </h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-2.5">
@@ -115,13 +115,13 @@ export default function Footer() {
               href="#"
               className="text-slate-500 text-xs hover:text-white transition-colors"
             >
-              Privacy Policy
+              Privaatsuspoliitika
             </a>
             <a
               href="#"
               className="text-slate-500 text-xs hover:text-white transition-colors"
             >
-              Terms of Service
+              Kasutustingimused
             </a>
           </div>
         </div>

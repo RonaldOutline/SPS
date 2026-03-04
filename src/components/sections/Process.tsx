@@ -33,8 +33,8 @@ export default function Process() {
   return (
     <Section id="process" className="bg-bg-secondary/50">
       <SectionHeading
-        title="How We Work"
-        subtitle="A streamlined process designed for efficiency and exceptional results, every time."
+        title="Kuidas me töötame"
+        subtitle="Tõhususe ja erakordsete tulemuste jaoks loodud sujuv protsess, alati."
       />
 
       <div ref={sectionRef} className="relative max-w-4xl mx-auto">
@@ -114,7 +114,7 @@ function StepCard({
         </div>
         <div>
           <span className="text-xs font-semibold text-accent-primary">
-            Step {step.number}
+            Samm {step.number}
           </span>
           <h3 className="font-outfit font-bold text-lg text-text-primary">
             {step.title}

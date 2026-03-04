@@ -58,7 +58,7 @@ const TOP_NAV = [
   { label: "Valdkonnad", href: "#industries" },
   { label: "Protsess", href: "#process" },
   { label: "Tagasiside", href: "#testimonials" },
-  { label: "Kontakt", href: "#cta" },
+  { label: "Kontakt", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -70,20 +70,15 @@ export default function Navbar() {
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => setScrolled(window.scrollY > 60);
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
   const openMega = () => {
@@ -95,6 +90,14 @@ export default function Navbar() {
     closeTimer.current = setTimeout(() => setMegaOpen(false), 150);
   };
 
+  // Transparent (hero) state: white text. Scrolled state: dark text.
+  const linkClass = scrolled
+    ? "text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
+    : "text-sm font-medium text-white/90 hover:text-white transition-colors";
+
+  const logoTextClass = scrolled ? "text-text-primary" : "text-white";
+  const iconClass = scrolled ? "text-text-primary" : "text-white";
+
   return (
     <>
       <motion.header
@@ -103,20 +106,20 @@ export default function Navbar() {
         transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "glass-heavy shadow-[0_4px_30px_rgba(0,0,0,0.05)]"
+            ? "bg-white/95 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,0.08)]"
             : "bg-transparent"
         }`}
       >
         <Container>
           <nav className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <a href="#" className="flex items-center gap-2 shrink-0">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center">
+            <a href="#" className="flex items-center gap-2.5 shrink-0">
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center shadow-sm">
                 <span className="text-white font-outfit font-bold text-sm">
                   {COMPANY.name}
                 </span>
               </div>
-              <span className="font-outfit font-bold text-xl text-text-primary">
+              <span className={`font-outfit font-bold text-xl transition-colors duration-300 ${logoTextClass}`}>
                 {COMPANY.name}
               </span>
             </a>
@@ -132,7 +135,7 @@ export default function Navbar() {
                     onMouseLeave={scheduleMegaClose}
                   >
                     <button
-                      className="flex items-center gap-1 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
+                      className={`flex items-center gap-1 ${linkClass}`}
                       onClick={() => setMegaOpen((v) => !v)}
                     >
                       {link.label}
@@ -145,7 +148,7 @@ export default function Navbar() {
                   <a
                     key={link.label}
                     href={link.href}
-                    className="link-underline text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
+                    className={`link-underline ${linkClass}`}
                   >
                     {link.label}
                   </a>
@@ -155,7 +158,7 @@ export default function Navbar() {
 
             {/* Desktop CTA */}
             <div className="hidden lg:block shrink-0">
-              <Button variant="primary" size="sm" href="#cta">
+              <Button variant="primary" size="sm" href="#contact">
                 Küsi pakkumist
               </Button>
             </div>
@@ -163,38 +166,38 @@ export default function Navbar() {
             {/* Mobile Hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-white/30 transition-colors"
-              aria-label="Toggle menu"
+              className="lg:hidden p-2 rounded-lg hover:bg-white/20 transition-colors"
+              aria-label="Ava menüü"
             >
               {mobileOpen ? (
-                <X className="w-6 h-6 text-text-primary" />
+                <X className={`w-6 h-6 ${iconClass}`} />
               ) : (
-                <Menu className="w-6 h-6 text-text-primary" />
+                <Menu className={`w-6 h-6 ${iconClass}`} />
               )}
             </button>
           </nav>
         </Container>
 
-        {/* Mega Menu Panel */}
+        {/* Mega Menu Panel — always solid white */}
         <AnimatePresence>
           {megaOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -8 }}
+              initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              className="hidden lg:block absolute top-full left-0 right-0 glass-heavy shadow-[0_16px_48px_rgba(0,0,0,0.08)] border-t border-white/30"
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+              className="hidden lg:block absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-[0_16px_48px_rgba(0,0,0,0.1)]"
               onMouseEnter={openMega}
               onMouseLeave={scheduleMegaClose}
             >
               <Container>
-                <div className="grid grid-cols-4 gap-0 py-6">
+                <div className="grid grid-cols-4 gap-0 py-7">
                   {MEGA_MENU_COLUMNS.map((col, ci) => (
                     <div
                       key={col.title}
                       className={`px-6 ${ci < MEGA_MENU_COLUMNS.length - 1 ? "border-r border-gray-100" : ""}`}
                     >
-                      <h3 className="font-outfit font-semibold text-sm text-accent-primary uppercase tracking-wider mb-3">
+                      <h3 className="font-outfit font-bold text-xs text-accent-primary uppercase tracking-widest mb-3">
                         {col.title}
                       </h3>
                       <ul className="space-y-2">
@@ -202,7 +205,7 @@ export default function Navbar() {
                           <li key={item}>
                             <a
                               href="#services"
-                              className="text-sm text-text-secondary hover:text-text-primary hover:translate-x-1 inline-block transition-all duration-150"
+                              className="text-sm text-text-secondary hover:text-accent-primary hover:translate-x-1 inline-block transition-all duration-150"
                               onClick={() => setMegaOpen(false)}
                             >
                               {item}
@@ -226,10 +229,10 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 glass-heavy lg:hidden overflow-y-auto"
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-40 bg-white lg:hidden overflow-y-auto"
           >
-            <div className="flex flex-col items-center justify-start pt-24 pb-12 px-6 gap-4 min-h-full">
+            <div className="flex flex-col items-center justify-start pt-24 pb-12 px-6 gap-2 min-h-full">
               {TOP_NAV.map((link, i) =>
                 link.hasMega ? (
                   <div key={link.label} className="w-full max-w-sm">
@@ -239,11 +242,11 @@ export default function Navbar() {
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ delay: 0.05 * i, duration: 0.3 }}
                       onClick={() => setMobileServicesOpen((v) => !v)}
-                      className="w-full flex items-center justify-between text-xl font-outfit font-semibold text-text-primary hover:text-accent-primary transition-colors py-2"
+                      className="w-full flex items-center justify-between text-xl font-outfit font-semibold text-text-primary hover:text-accent-primary transition-colors py-3 border-b border-gray-100"
                     >
                       {link.label}
                       <ChevronDown
-                        className={`w-5 h-5 transition-transform ${mobileServicesOpen ? "rotate-180" : ""}`}
+                        className={`w-5 h-5 transition-transform duration-200 ${mobileServicesOpen ? "rotate-180" : ""}`}
                       />
                     </motion.button>
                     <AnimatePresence>
@@ -255,10 +258,10 @@ export default function Navbar() {
                           transition={{ duration: 0.25 }}
                           className="overflow-hidden"
                         >
-                          <div className="grid grid-cols-2 gap-x-4 gap-y-3 pt-3 pb-2 pl-2">
+                          <div className="grid grid-cols-2 gap-x-4 gap-y-4 pt-4 pb-3 pl-2">
                             {MEGA_MENU_COLUMNS.map((col) => (
                               <div key={col.title}>
-                                <p className="text-xs font-semibold text-accent-primary uppercase tracking-wider mb-1">
+                                <p className="text-xs font-bold text-accent-primary uppercase tracking-wider mb-2">
                                   {col.title}
                                 </p>
                                 {col.items.map((item) => (
@@ -266,7 +269,7 @@ export default function Navbar() {
                                     key={item}
                                     href="#services"
                                     onClick={() => setMobileOpen(false)}
-                                    className="block text-sm text-text-secondary hover:text-text-primary py-0.5"
+                                    className="block text-sm text-text-secondary hover:text-text-primary py-1"
                                   >
                                     {item}
                                   </a>
@@ -287,7 +290,7 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ delay: 0.05 * i, duration: 0.3 }}
-                    className="text-xl font-outfit font-semibold text-text-primary hover:text-accent-primary transition-colors w-full max-w-sm py-2"
+                    className="text-xl font-outfit font-semibold text-text-primary hover:text-accent-primary transition-colors w-full max-w-sm py-3 border-b border-gray-100"
                   >
                     {link.label}
                   </motion.a>
@@ -298,12 +301,13 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ delay: 0.35, duration: 0.3 }}
-                className="mt-4"
+                className="mt-6 w-full max-w-sm"
               >
                 <Button
                   variant="primary"
                   size="lg"
-                  href="#cta"
+                  href="#contact"
+                  className="w-full justify-center"
                   onClick={() => setMobileOpen(false)}
                 >
                   Küsi pakkumist

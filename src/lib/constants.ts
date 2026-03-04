@@ -10,22 +10,22 @@ import type {
 } from "@/types";
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#why-us" },
-  { label: "Industries", href: "#industries" },
-  { label: "Process", href: "#process" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Contact", href: "#cta" },
+  { label: "Teenused", href: "#services" },
+  { label: "Meist", href: "#why-us" },
+  { label: "Valdkonnad", href: "#industries" },
+  { label: "Protsess", href: "#process" },
+  { label: "Tagasiside", href: "#testimonials" },
+  { label: "Kontakt", href: "#contact" },
 ];
 
 export const HERO = {
-  headline: "Pristine Spaces for",
-  highlightedWord: "Exceptional",
-  headlineSuffix: "Businesses",
+  headline: "Säravad ruumid",
+  highlightedWord: "erilistele",
+  headlineSuffix: "ettevõtetele",
   subheadline:
-    "Estonia's premier commercial cleaning partner. Trusted by leading corporations to maintain spotless environments that inspire productivity.",
-  ctaPrimary: "Get a Free Quote",
-  ctaSecondary: "Our Services",
+    "Oleme puhastuspartneriks Harjumaa suurematele ettevõtetele. Meid usaldavad üle 160 ettevõtte, kelle keskkonnad on alati plekitu.",
+  ctaPrimary: "Küsi pakkumist",
+  ctaSecondary: "Meie teenused",
 };
 
 export const LOGO_COMPANIES = [
@@ -42,39 +42,33 @@ export const LOGO_COMPANIES = [
 export const SERVICES: Service[] = [
   {
     icon: "Building2",
-    title: "Office Cleaning",
-    description:
-      "Daily & periodic cleaning for corporate offices, ensuring a pristine working environment for your team.",
+    title: "Kontorite koristus",
+    description: "",
   },
   {
     icon: "Factory",
-    title: "Industrial Cleaning",
-    description:
-      "Warehouses, factories, and production facilities cleaned to the highest safety and hygiene standards.",
+    title: "Tööstushoonete koristus",
+    description: "",
   },
   {
     icon: "Store",
-    title: "Retail & Commercial",
-    description:
-      "Shopping centers and showrooms maintained to create an inviting atmosphere for your customers.",
+    title: "Kaubanduskeskuste puhastus",
+    description: "",
   },
   {
     icon: "HardHat",
-    title: "Post-Construction Cleanup",
-    description:
-      "After renovation deep cleaning that transforms construction sites into move-in ready spaces.",
+    title: "Ehitusjärgne koristus",
+    description: "",
   },
   {
     icon: "PanelsTopLeft",
-    title: "Window & Facade Cleaning",
-    description:
-      "High-rise and commercial exterior cleaning using professional-grade equipment and techniques.",
+    title: "Akende pesu",
+    description: "",
   },
   {
     icon: "ShieldCheck",
-    title: "Specialized Sanitization",
-    description:
-      "Disinfection and healthcare-grade protocols for environments requiring the highest hygiene standards.",
+    title: "Fassaadipesu",
+    description: "",
   },
 ];
 
@@ -82,79 +76,79 @@ export const STATS: Stat[] = [
   {
     value: "15",
     suffix: "+",
-    label: "Years of Experience",
+    label: "Aastat kogemust",
     description:
-      "Over a decade of delivering exceptional commercial cleaning services across Estonia.",
+      "Üle 15 aasta erakordset ärikinnisvara koristusteenust üle kogu Harjumaa.",
   },
   {
-    value: "500",
+    value: "160",
     suffix: "+",
-    label: "Corporate Clients",
+    label: "Äriklienti",
     description:
-      "Trusted by hundreds of businesses, from startups to Fortune 500 enterprises.",
+      "Meid usaldavad sajad ettevõtted, alates iduettevõtetest kuni suurkorporatsioonideni.",
   },
   {
     value: "99.7",
     suffix: "%",
-    label: "Satisfaction Rate",
+    label: "Rahulolu määr",
     description:
-      "Our commitment to quality is reflected in our industry-leading client satisfaction.",
+      "Meie pühendumust kvaliteedile peegeldab valdkonna kõrgeim klientide rahulolu.",
   },
 ];
 
 export const INDUSTRIES: Industry[] = [
   {
-    name: "Corporate Offices",
-    description: "Daily maintenance and deep cleaning for modern workspaces",
+    name: "Kontorihooned",
+    description: "Igapäevane hooldus ja sügavpuhastus kaasaegsetele tööruumidele",
     clientCount: "200+",
     image:
       "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
   },
   {
-    name: "Business Centers",
-    description: "Comprehensive cleaning for multi-tenant commercial properties",
+    name: "Ärikeskused",
+    description: "Põhjalik puhastus mitme üürnikuga ärikinnisvarale",
     clientCount: "85+",
     image:
       "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
   },
   {
-    name: "Retail Chains",
-    description: "Spotless shopping environments that enhance customer experience",
+    name: "Kaubandusketid",
+    description: "Laitmatu ostukeskkonnad, mis tõstavad kliendi kogemust",
     clientCount: "120+",
     image:
       "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80",
   },
   {
-    name: "Logistics & Warehouses",
-    description: "Industrial-grade cleaning for distribution and storage facilities",
+    name: "Logistika ja laod",
+    description: "Tööstuslik puhastus jaotus- ja ladustamisettevõtetele",
     clientCount: "60+",
     image:
       "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80",
   },
   {
-    name: "Healthcare Facilities",
-    description: "Medical-grade sanitization meeting strict healthcare regulations",
+    name: "Tervishoiuasutused",
+    description: "Meditsiinilise tasemega desinfitseerimine rangete nõuete täitmiseks",
     clientCount: "45+",
     image:
       "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80",
   },
   {
-    name: "Hotels & Hospitality",
-    description: "Premium cleaning services for guest-facing environments",
+    name: "Hotellid ja majutus",
+    description: "Premium puhastusteenus külaliste keskkondade jaoks",
     clientCount: "70+",
     image:
       "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80",
   },
   {
-    name: "Educational Institutions",
-    description: "Safe and hygienic learning environments for students and staff",
+    name: "Haridusasutused",
+    description: "Turvaline ja hügieeniline õpikeskkond õpilastele ja töötajatele",
     clientCount: "55+",
     image:
       "https://images.unsplash.com/photo-1562774053-701939374585?w=800&q=80",
   },
   {
-    name: "Government Buildings",
-    description: "Reliable cleaning services meeting public sector compliance standards",
+    name: "Riigihooned",
+    description: "Usaldusväärne puhastus avaliku sektori nõuete kohaselt",
     clientCount: "30+",
     image:
       "https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?w=800&q=80",
@@ -165,93 +159,93 @@ export const PROCESS_STEPS: ProcessStep[] = [
   {
     number: 1,
     icon: "ClipboardList",
-    title: "Consultation",
+    title: "Konsultatsioon",
     description:
-      "We assess your facility and understand your unique requirements through a comprehensive on-site evaluation.",
+      "Hindame teie ruume ja mõistame teie unikaalseid vajadusi põhjaliku kohapealse hindamise käigus.",
   },
   {
     number: 2,
     icon: "FileText",
-    title: "Custom Plan",
+    title: "Kohandatud plaan",
     description:
-      "Tailored cleaning protocol designed for your space, schedule, and specific industry requirements.",
+      "Teie ruumile, ajakavale ja valdkonna erinõuetele kohandatud koristusprotokoll.",
   },
   {
     number: 3,
     icon: "Sparkles",
-    title: "Execution",
+    title: "Teostus",
     description:
-      "Our trained professionals deliver with precision and discretion, using eco-certified products and methods.",
+      "Meie koolitatud spetsialistid töötavad täpselt ja diskreetselt, kasutades öko-sertifitseeritud tooteid.",
   },
   {
     number: 4,
     icon: "CheckCircle",
-    title: "Quality Assurance",
+    title: "Kvaliteedikontroll",
     description:
-      "Regular inspections, detailed reporting, and continuous improvement to exceed your expectations.",
+      "Regulaarsed inspektsioonid, üksikasjalik aruandlus ja pidev täiustamine teie ootuste ületamiseks.",
   },
 ];
 
 export const TESTIMONIALS: Testimonial[] = [
   {
     quote:
-      "SPS transformed our office environment completely. Their attention to detail is remarkable — every surface gleams, and our team has noticed a genuine improvement in workplace morale.",
+      "SPS muutis meie kontori keskkonna täielikult. Nende tähelepanu detailidele on üllatav — iga pind läigib ning meie meeskond on märganud tõelist paranemist töökoha meeleolus.",
     name: "Maria Kask",
-    title: "Facilities Director",
+    title: "Kinnisvarajuht",
     company: "Nordic Tech Solutions",
     stars: 5,
   },
   {
     quote:
-      "We've worked with several cleaning companies, but none match the consistency and professionalism of SPS. They treat our retail spaces as if they were their own.",
+      "Oleme teinud koostööd mitme koristusfirmaga, kuid ükski neist ei suuda konkureerida SPS-i järjepidevuse ja professionaalsusega. Nad kohtlevad meie kaupluseid nagu enda omi.",
     name: "Andrei Volkov",
-    title: "Operations Manager",
+    title: "Operatsioonijuht",
     company: "Baltic Retail Group",
     stars: 5,
   },
   {
     quote:
-      "The post-construction cleanup they delivered for our new headquarters was flawless. Move-in ready ahead of schedule. Highly recommend their specialized services.",
+      "Nende teostatud ehitusjärgne koristus meie uues peakorteris oli laitmatu. Sissekolimisvalmis enne tähtaega. Soovitan nende spetsialiseeritud teenuseid kõigile.",
     name: "Laura Tamm",
-    title: "Project Manager",
+    title: "Projektijuht",
     company: "EstBuild Properties",
     stars: 5,
   },
   {
     quote:
-      "Their healthcare-grade sanitization protocols gave us complete confidence during challenging times. Professional, thorough, and always reliable.",
+      "Nende tervishoiu-tasemega desinfitseerimisprotokollid andsid meile keerulistes olukordades täieliku kindlustunde. Professionaalne, põhjalik ja alati usaldusväärne.",
     name: "Dr. Henrik Pärn",
-    title: "Chief Medical Officer",
-    company: "Tallinn Health Center",
+    title: "Peaarst",
+    company: "Tallinna Tervisekeskus",
     stars: 5,
   },
 ];
 
 export const SUSTAINABILITY_POINTS: SustainabilityPoint[] = [
-  { text: "Eco-certified cleaning products used across all services" },
-  { text: "Waste reduction & recycling protocols at every job site" },
-  { text: "Carbon footprint tracking & annual reporting" },
+  { text: "Öko-sertifitseeritud puhastustooted kõikides teenustes" },
+  { text: "Jäätmete vähendamise ja ringlussevõtu protokollid igal tööobjektil" },
+  { text: "Süsiniku jalajälje jälgimine ja aastaaruandlus" },
 ];
 
 export const FOOTER_COLUMNS: FooterColumn[] = [
   {
-    title: "Quick Links",
+    title: "Kiirlingid",
     links: [
-      { label: "Services", href: "#services" },
-      { label: "About Us", href: "#why-us" },
-      { label: "Industries", href: "#industries" },
-      { label: "Contact", href: "#cta" },
+      { label: "Teenused", href: "#services" },
+      { label: "Meist", href: "#why-us" },
+      { label: "Valdkonnad", href: "#industries" },
+      { label: "Kontakt", href: "#contact" },
     ],
   },
   {
-    title: "Services",
+    title: "Teenused",
     links: [
-      { label: "Office Cleaning", href: "#" },
-      { label: "Industrial Cleaning", href: "#" },
-      { label: "Retail & Commercial", href: "#" },
-      { label: "Post-Construction", href: "#" },
-      { label: "Window & Facade", href: "#" },
-      { label: "Sanitization", href: "#" },
+      { label: "Kontorite koristus", href: "#" },
+      { label: "Tööstushoonete koristus", href: "#" },
+      { label: "Kaubanduskeskuste puhastus", href: "#" },
+      { label: "Ehitusjärgne koristus", href: "#" },
+      { label: "Akende pesu", href: "#" },
+      { label: "Fassaadipesu", href: "#" },
     ],
   },
 ];
@@ -266,8 +260,8 @@ export const FOOTER_CONTACT = {
 
 export const COMPANY = {
   name: "SPS",
-  fullName: "SPS Professional Cleaning",
+  fullName: "SPS Grupp",
   description:
-    "Estonia's leading commercial cleaning company, delivering premium facility maintenance solutions for corporate clients since 2009.",
-  copyright: `© ${new Date().getFullYear()} SPS Professional Cleaning. All rights reserved.`,
+    "Harjumaa juhtiv ärikinnisvara koristusfirma, pakkudes korporatiivsetele klientidele tipptasemel hoolduslahendusi alates 2006. aastast.",
+  copyright: `© ${new Date().getFullYear()} SPS Grupp. Kõik õigused kaitstud.`,
 };

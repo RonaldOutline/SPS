@@ -32,8 +32,8 @@ export default function Testimonials() {
   return (
     <Section id="testimonials">
       <SectionHeading
-        title="What Our Clients Say"
-        subtitle="Hear from the businesses that trust us with their environments."
+        title="Mida meie kliendid ütlevad"
+        subtitle="Kuulge ettevõtetelt, kes usaldavad meile oma keskkonna."
       />
 
       <div
@@ -85,7 +85,7 @@ export default function Testimonials() {
           <button
             onClick={prev}
             className="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-glass-hover transition-colors"
-            aria-label="Previous testimonial"
+            aria-label="Eelmine arvustus"
           >
             <ChevronLeft className="w-5 h-5 text-text-secondary" />
           </button>
@@ -95,7 +95,7 @@ export default function Testimonials() {
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                aria-label={`Go to testimonial ${i + 1}`}
+                aria-label={`Mine arvustuse juurde ${i + 1}`}
                 className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                   i === current
                     ? "bg-accent-primary w-6"
@@ -108,7 +108,7 @@ export default function Testimonials() {
           <button
             onClick={next}
             className="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-glass-hover transition-colors"
-            aria-label="Next testimonial"
+            aria-label="Järgmine arvustus"
           >
             <ChevronRight className="w-5 h-5 text-text-secondary" />
           </button>

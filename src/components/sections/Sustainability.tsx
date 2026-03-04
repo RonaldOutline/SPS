@@ -18,15 +18,13 @@ export default function Sustainability() {
         <div>
           <ScrollReveal direction="left">
             <span className="text-xs font-semibold tracking-[0.15em] uppercase text-success">
-              Sustainability
+              Jätkusuutlikkus
             </span>
             <h2 className="font-outfit font-bold text-3xl md:text-4xl text-text-primary mt-2 mb-4">
-              Committed to a Cleaner Planet
+              Pühendunud puhtamale planeedile
             </h2>
             <p className="text-text-secondary leading-relaxed mb-8">
-              We believe in cleaning that doesn&apos;t come at the planet&apos;s
-              expense. Our eco-forward approach ensures every job we do contributes
-              to a more sustainable future.
+              Usume puhastamisse, mis ei käi planeedi arvelt. Meie keskkonnasõbralik lähenemine tagab, et iga meie töö aitab kaasa jätkusuutlikumale tulevikule.
             </p>
           </ScrollReveal>
 
@@ -55,7 +53,7 @@ export default function Sustainability() {
               href="#"
               className="link-underline text-accent-primary font-semibold text-sm inline-flex items-center gap-1"
             >
-              Read Our Sustainability Commitment →
+              Loe meie jätkusuutlikkuse kohustust →
             </a>
           </ScrollReveal>
         </div>
@@ -104,7 +102,7 @@ export default function Sustainability() {
               animate={isInView ? { y: [0, -8, 0] } : {}}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
-              🌿 Eco Products
+              🌿 Öko tooted
             </motion.div>
             <motion.div
               className="absolute bottom-12 left-0 glass-heavy rounded-lg px-3 py-2 text-xs font-semibold text-text-primary"
@@ -116,7 +114,7 @@ export default function Sustainability() {
                 delay: 1,
               }}
             >
-              ♻️ Zero Waste
+              ♻️ Null jäätmeid
             </motion.div>
           </div>
         </ScrollReveal>

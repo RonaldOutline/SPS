@@ -10,12 +10,15 @@ import Industries from "@/components/sections/Industries";
 import Process from "@/components/sections/Process";
 import Testimonials from "@/components/sections/Testimonials";
 import Sustainability from "@/components/sections/Sustainability";
-import CTABanner from "@/components/sections/CTABanner";
+import ContactForm from "@/components/sections/ContactForm";
+import VideoBlock from "@/components/sections/VideoBlock";
+import FloatingCTA from "@/components/ui/FloatingCTA";
 
 export default function Home() {
   return (
     <>
       <Navbar />
+      <FloatingCTA />
       <main>
         <Hero />
         <LogoBar />
@@ -24,8 +27,9 @@ export default function Home() {
         <Industries />
         <Process />
         <Testimonials />
+        <VideoBlock />
         <Sustainability />
-        <CTABanner />
+        <ContactForm />
       </main>
       <Footer />
     </>

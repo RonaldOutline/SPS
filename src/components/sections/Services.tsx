@@ -30,8 +30,8 @@ export default function Services() {
   return (
     <Section id="services">
       <SectionHeading
-        title="Comprehensive Cleaning Solutions"
-        subtitle="From daily office maintenance to specialized industrial cleaning, we deliver excellence across every service."
+        title="Põhjalikud puhastusteenused"
+        subtitle="Igapäevasest korrashoiust kuni spetsialiseeritud tööstusliku puhastuseni. Suudame olla tugevad kõikides puhastuslahendustes."
       />
 
       <StaggerChildren
@@ -62,14 +62,9 @@ export default function Services() {
                 {service.title}
               </h3>
 
-              {/* Description */}
-              <p className="text-text-secondary text-sm leading-relaxed mb-4">
-                {service.description}
-              </p>
-
               {/* Link */}
-              <span className="inline-flex items-center gap-1.5 text-accent-primary text-sm font-semibold group/link">
-                Learn More
+              <span className="inline-flex items-center gap-1.5 text-accent-primary text-sm font-semibold mt-2">
+                Vaata lisaks
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </span>
             </motion.article>
