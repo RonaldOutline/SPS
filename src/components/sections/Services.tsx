@@ -44,7 +44,7 @@ export default function Services() {
             <motion.article
               key={service.title}
               variants={staggerItem}
-              className="glass rounded-2xl p-6 gradient-border-hover group cursor-pointer"
+              className="glass rounded-2xl p-6 gradient-border-hover group cursor-pointer flex flex-col items-center text-center"
               whileHover={{
                 y: -8,
                 boxShadow: "0 20px 40px rgba(0,0,0,0.08)",
@@ -53,17 +53,17 @@ export default function Services() {
               transition={{ duration: 0.25, ease: "easeOut" }}
             >
               {/* Icon */}
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center mb-5">
-                {Icon && <Icon className="w-6 h-6 text-white" />}
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center mb-5">
+                {Icon && <Icon className="w-7 h-7 text-white" />}
               </div>
 
               {/* Title */}
-              <h3 className="font-outfit font-bold text-lg text-text-primary mb-2">
+              <h3 className="font-outfit font-bold text-lg text-text-primary mb-3">
                 {service.title}
               </h3>
 
               {/* Link */}
-              <span className="inline-flex items-center gap-1.5 text-accent-primary text-sm font-semibold mt-2">
+              <span className="inline-flex items-center gap-1.5 text-accent-primary text-base font-semibold mt-auto">
                 Vaata lisaks
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </span>
