@@ -25,7 +25,7 @@ export default function Hero() {
   const headlineWords = HERO.headline.split(" ");
 
   return (
-    <section className="relative min-h-screen flex items-end overflow-hidden pt-20 pb-10 md:pb-14">
+    <section className="relative min-h-[calc(100vh-5rem)] flex items-end overflow-hidden pb-10 md:pb-14">
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"

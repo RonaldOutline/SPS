@@ -34,7 +34,11 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased bg-bg-primary">{children}</body>
+      <body className="antialiased bg-[#0f172a]">
+        <div className="max-w-[1280px] mx-auto bg-bg-primary overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.5)]">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
