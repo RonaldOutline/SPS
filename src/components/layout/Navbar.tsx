@@ -53,11 +53,11 @@ const MEGA_MENU_COLUMNS = [
 ];
 
 const TOP_NAV = [
-  { label: "Teenused", hasMega: true },
-  { label: "Meist", href: "#why-us" },
+  { label: "Koristusteenused", hasMega: true },
   { label: "Valdkonnad", href: "#industries" },
-  { label: "Protsess", href: "#process" },
   { label: "Tagasiside", href: "#testimonials" },
+  { label: "Meist", href: "#why-us" },
+  { label: "SPS Grupp", href: "#video" },
   { label: "Kontakt", href: "#contact" },
 ];
 

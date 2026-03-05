@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef, useLayoutEffect } from "react";
-import { motion, useMotionValue, animate } from "framer-motion";
+import { motion, useMotionValue, animate, useInView } from "framer-motion";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
 import { TESTIMONIALS } from "@/lib/constants";
-import Section from "@/components/layout/Section";
-import SectionHeading from "@/components/ui/SectionHeading";
+import Container from "@/components/layout/Container";
 
 const GAP = 24;
 const CARD_RATIO = 0.78;
@@ -16,12 +15,13 @@ export default function Testimonials() {
   const [isAnimating, setIsAnimating] = useState(false);
   const total = TESTIMONIALS.length;
 
+  const sectionRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const cardWidthRef = useRef(0);
   const pendingReset = useRef(false);
+  const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
   const x = useMotionValue(0);
 
-  // Measure container and set initial offset
   useEffect(() => {
     const measure = () => {
       if (!containerRef.current) return;
@@ -34,7 +34,6 @@ export default function Testimonials() {
     return () => window.removeEventListener("resize", measure);
   }, [x]);
 
-  // Reset x to center after setCurrent causes a re-render (no visible flash)
   useLayoutEffect(() => {
     if (pendingReset.current) {
       pendingReset.current = false;
@@ -76,76 +75,96 @@ export default function Testimonials() {
   ];
 
   return (
-    <Section id="testimonials">
-      <SectionHeading
-        title="Mida meie kliendid ütlevad"
-        subtitle="Kuulge ettevõtetelt, kes usaldavad meile oma keskkonna."
-      />
-
-      <div
-        ref={containerRef}
-        className="relative overflow-hidden"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
-        {/* Edge fades */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-[#F8FAFE] to-transparent pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-[#F8FAFE] to-transparent pointer-events-none" />
-
-        {/* Sliding track */}
-        <motion.div className="flex" style={{ x, gap: GAP }}>
-          {slides.map((t, i) => (
-            <div
-              key={`${current}-${i}`}
-              style={{ width: `${CARD_RATIO * 100}%` }}
-              className="flex-shrink-0"
-            >
-              <TestimonialCard testimonial={t} active={i === 1} />
-            </div>
-          ))}
+    <section id="testimonials" className="py-20 md:py-28 bg-bg-secondary/40" ref={sectionRef}>
+      <Container>
+        {/* Heading */}
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-primary block mb-3">
+            Tagasiside
+          </span>
+          <h2 className="font-outfit font-bold text-text-primary text-3xl md:text-4xl leading-tight mb-3">
+            Mida kliendid arvavad
+          </h2>
+          <p className="text-text-secondary max-w-md mx-auto text-base">
+            Kuulge ettevõtetelt, kes usaldavad meile oma keskkonna.
+          </p>
         </motion.div>
-      </div>
 
-      {/* Navigation */}
-      <div className="flex items-center justify-center gap-4 mt-8">
-        <button
-          onClick={goPrev}
-          className="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-glass-hover transition-colors"
-          aria-label="Eelmine arvustus"
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
         >
-          <ChevronLeft className="w-5 h-5 text-text-secondary" />
-        </button>
+          <div
+            ref={containerRef}
+            className="relative overflow-hidden"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            {/* Edge fades */}
+            <div className="absolute left-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-r from-bg-secondary/60 to-transparent pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-l from-bg-secondary/60 to-transparent pointer-events-none" />
 
-        <div className="flex gap-2">
-          {TESTIMONIALS.map((_, i) => (
+            {/* Sliding track */}
+            <motion.div className="flex" style={{ x, gap: GAP }}>
+              {slides.map((t, i) => (
+                <div
+                  key={`${current}-${i}`}
+                  style={{ width: `${CARD_RATIO * 100}%` }}
+                  className="flex-shrink-0"
+                >
+                  <TestimonialCard testimonial={t} active={i === 1} />
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Navigation */}
+          <div className="flex items-center justify-center gap-4 mt-8">
             <button
-              key={i}
-              onClick={() => {
-                if (!isAnimating) {
-                  const dir = i > current ? 1 : -1;
-                  if (dir === 1) goNext();
-                  else goPrev();
-                }
-              }}
-              aria-label={`Mine arvustuse juurde ${i + 1}`}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                i === current
-                  ? "w-6 bg-accent-primary"
-                  : "w-2 bg-text-muted/30 hover:bg-text-muted/50"
-              }`}
-            />
-          ))}
-        </div>
+              onClick={goPrev}
+              className="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-white/80 transition-all duration-200 hover:shadow-sm"
+              aria-label="Eelmine arvustus"
+            >
+              <ChevronLeft className="w-5 h-5 text-text-secondary" />
+            </button>
 
-        <button
-          onClick={goNext}
-          className="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-glass-hover transition-colors"
-          aria-label="Järgmine arvustus"
-        >
-          <ChevronRight className="w-5 h-5 text-text-secondary" />
-        </button>
-      </div>
-    </Section>
+            <div className="flex gap-2">
+              {TESTIMONIALS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => {
+                    if (!isAnimating) {
+                      if (i > current) goNext();
+                      else if (i < current) goPrev();
+                    }
+                  }}
+                  aria-label={`Mine arvustuse juurde ${i + 1}`}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    i === current
+                      ? "w-6 bg-accent-primary"
+                      : "w-2 bg-text-muted/30 hover:bg-text-muted/50"
+                  }`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={goNext}
+              className="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-white/80 transition-all duration-200 hover:shadow-sm"
+              aria-label="Järgmine arvustus"
+            >
+              <ChevronRight className="w-5 h-5 text-text-secondary" />
+            </button>
+          </div>
+        </motion.div>
+      </Container>
+    </section>
   );
 }
 
@@ -157,12 +176,16 @@ function TestimonialCard({
   active?: boolean;
 }) {
   return (
-    <div
-      className={`glass rounded-2xl p-6 md:p-8 transition-shadow duration-300 ${
-        active ? "shadow-lg shadow-accent-primary/10" : ""
+    <motion.div
+      animate={active ? { opacity: 1, scale: 1 } : { opacity: 0.55, scale: 0.97 }}
+      transition={{ duration: 0.3 }}
+      className={`rounded-2xl p-6 md:p-8 border transition-all duration-300 h-full ${
+        active
+          ? "bg-white border-gray-100 shadow-lg shadow-black/5"
+          : "bg-white/50 border-gray-100/50"
       }`}
     >
-      <Quote className="w-8 h-8 text-accent-primary opacity-20 mb-3" />
+      <Quote className={`w-7 h-7 mb-3 transition-colors duration-300 ${active ? "text-accent-primary opacity-25" : "text-text-muted opacity-15"}`} />
       <div className="flex gap-1 mb-4">
         {Array.from({ length: testimonial.stars }).map((_, i) => (
           <Star key={i} className="w-4 h-4 fill-gold text-gold" />
@@ -171,16 +194,16 @@ function TestimonialCard({
       <blockquote className="text-text-primary text-base md:text-lg leading-relaxed italic mb-5">
         &ldquo;{testimonial.quote}&rdquo;
       </blockquote>
-      <div>
+      <div className="border-t border-gray-100 pt-4">
         {testimonial.name && (
           <p className="font-outfit font-bold text-text-primary text-sm">
             {testimonial.name}
           </p>
         )}
-        <p className="text-text-secondary text-xs font-semibold">
+        <p className="text-text-secondary text-xs font-semibold mt-0.5">
           {[testimonial.title, testimonial.company].filter(Boolean).join(", ")}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -3,7 +3,6 @@
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Play } from "lucide-react";
-import Section from "@/components/layout/Section";
 import Container from "@/components/layout/Container";
 
 export default function VideoBlock() {
@@ -12,7 +11,7 @@ export default function VideoBlock() {
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
 
   return (
-    <Section id="video" className="bg-bg-secondary/40">
+    <section id="video" className="py-20 md:py-28 bg-white">
       <Container>
         <div ref={ref} className="max-w-4xl mx-auto">
           {/* Heading */}
@@ -22,9 +21,9 @@ export default function VideoBlock() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <p className="text-accent-primary font-semibold text-sm tracking-widest uppercase mb-3">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-primary block mb-3">
               Vaata lähemalt
-            </p>
+            </span>
             <h2 className="font-outfit font-bold text-text-primary text-3xl md:text-4xl leading-tight">
               Kuidas me töötame
             </h2>
@@ -35,13 +34,12 @@ export default function VideoBlock() {
 
           {/* Video container */}
           <motion.div
-            className="relative rounded-3xl overflow-hidden shadow-2xl aspect-video bg-slate-900 group"
-            initial={{ opacity: 0, scale: 0.96 }}
+            className="relative rounded-3xl overflow-hidden shadow-2xl aspect-video bg-slate-900 group cursor-pointer"
+            initial={{ opacity: 0, scale: 0.97 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
           >
             {playing ? (
-              /* Replace src with your actual video URL */
               <iframe
                 className="absolute inset-0 w-full h-full"
                 src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
@@ -51,34 +49,50 @@ export default function VideoBlock() {
               />
             ) : (
               <>
-                {/* Thumbnail overlay */}
+                {/* Thumbnail */}
                 <div
-                  className="absolute inset-0 bg-cover bg-center"
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                   style={{
                     backgroundImage:
                       "url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1400&q=80')",
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/25 to-transparent" />
 
                 {/* Play button */}
                 <button
                   onClick={() => setPlaying(true)}
-                  className="absolute inset-0 flex flex-col items-center justify-center gap-4 group"
+                  className="absolute inset-0 flex flex-col items-center justify-center gap-4"
                   aria-label="Esita video"
                 >
                   <motion.div
-                    className="w-20 h-20 rounded-full bg-white/95 shadow-[0_0_40px_rgba(14,165,233,0.4)] flex items-center justify-center"
+                    className="relative"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
-                    animate={{ boxShadow: ["0 0 20px rgba(14,165,233,0.2)", "0 0 50px rgba(14,165,233,0.5)", "0 0 20px rgba(14,165,233,0.2)"] }}
-                    transition={{ repeat: Infinity, duration: 2.5 }}
                   >
-                    <Play className="w-8 h-8 text-accent-primary ml-1" fill="currentColor" />
+                    {/* Pulsing ring */}
+                    <motion.div
+                      className="absolute inset-0 rounded-full bg-accent-primary/30"
+                      animate={{ scale: [1, 1.6, 1], opacity: [0.6, 0, 0.6] }}
+                      transition={{ repeat: Infinity, duration: 2.2, ease: "easeInOut" }}
+                    />
+                    <motion.div
+                      className="absolute inset-0 rounded-full bg-accent-primary/20"
+                      animate={{ scale: [1, 1.35, 1], opacity: [0.5, 0, 0.5] }}
+                      transition={{ repeat: Infinity, duration: 2.2, delay: 0.4, ease: "easeInOut" }}
+                    />
+                    <div className="relative w-20 h-20 rounded-full bg-white shadow-[0_0_40px_rgba(14,165,233,0.35)] flex items-center justify-center">
+                      <Play className="w-8 h-8 text-accent-primary ml-1" fill="currentColor" />
+                    </div>
                   </motion.div>
-                  <span className="text-white font-outfit font-semibold text-sm tracking-wide opacity-90">
+                  <motion.span
+                    className="text-white font-outfit font-semibold text-sm tracking-wide opacity-90"
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                  >
                     Esita tutvustus
-                  </span>
+                  </motion.span>
                 </button>
 
                 {/* Bottom label */}
@@ -88,8 +102,8 @@ export default function VideoBlock() {
                       <span className="text-white font-outfit font-bold text-xs">SPS</span>
                     </div>
                     <div>
-                      <p className="text-white font-outfit font-bold text-sm">SPS Grupp</p>
-                      <p className="text-white/70 text-xs">Harjumaa juhtiv koristusfirma alates 2006</p>
+                      <p className="text-white font-outfit font-bold text-sm">Tarmo Sildberg</p>
+                      <p className="text-white/65 text-xs">SPS Grupp — Harjumaa juhtiv koristusfirma alates 2006</p>
                     </div>
                   </div>
                 </div>
@@ -98,6 +112,6 @@ export default function VideoBlock() {
           </motion.div>
         </div>
       </Container>
-    </Section>
+    </section>
   );
 }
