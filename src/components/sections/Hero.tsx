@@ -29,12 +29,10 @@ export default function Hero() {
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/SPSHero.png')" }}
+        style={{ backgroundImage: "url('/SPShero2.jpg')" }}
       />
-      {/* Dark blue overlay with subtle gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#071428]/80 via-[#0c1e3d]/70 to-[#0a1a35]/75" />
-      {/* Subtle light rays */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(14,165,233,0.12)_0%,transparent_60%)]" />
+      {/* Dark overlay — fades left to right, dark on left where text is */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#071428]/90 via-[#071428]/60 to-[#071428]/10" />
 
       <Container className="relative z-10 w-full">
         <div className="flex flex-col items-start gap-6 md:gap-8 max-w-3xl">
