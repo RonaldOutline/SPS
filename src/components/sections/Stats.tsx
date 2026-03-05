@@ -9,6 +9,16 @@ import ScrollReveal from "@/components/animations/ScrollReveal";
 export default function Stats() {
   return (
     <Section id="why-us" className="bg-bg-secondary/50">
+      {/* Full-width heading above both columns */}
+      <ScrollReveal direction="up" className="text-center mb-10">
+        <span className="text-xs font-semibold tracking-[0.15em] uppercase text-accent-primary">
+          Miks valida meid
+        </span>
+        <h2 className="font-outfit font-bold text-3xl md:text-4xl text-text-primary mt-2">
+          20 aastase ajalooga koristusfirma
+        </h2>
+      </ScrollReveal>
+
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16 items-center">
         {/* Left: Image */}
         <ScrollReveal direction="left" className="lg:col-span-3 relative">
@@ -22,7 +32,7 @@ export default function Stats() {
             />
           </div>
 
-          {/* Floating stat cards over image */}
+          {/* Floating stat card over image */}
           <div className="absolute -bottom-6 right-4 md:right-8 glass-heavy rounded-xl px-5 py-4 shadow-lg">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center">
@@ -37,15 +47,9 @@ export default function Stats() {
         </ScrollReveal>
 
         {/* Right: Stats */}
-        <div className="lg:col-span-2 space-y-2">
+        <div className="lg:col-span-2 space-y-6">
           <ScrollReveal direction="right">
-            <span className="text-xs font-semibold tracking-[0.15em] uppercase text-accent-primary">
-              Miks valida meid
-            </span>
-            <h2 className="font-outfit font-bold text-3xl md:text-4xl text-text-primary mt-2 mb-4">
-              20 aastase ajalooga koristusfirma
-            </h2>
-            <p className="text-text-secondary leading-relaxed mb-8">
+            <p className="text-text-secondary leading-relaxed">
               Koristusfirma SPS Grupp ajalugu sai alguse 2006. aastal. Tänaseks oleme kasvanud üheks Harjumaa juhtivaks kinnisvarahaldus ettevõtteks. Meil töötab üle 200 töötaja ning suudame leida optimaalse lahenduse nii suurtele, kui ka väga suurtele ettevõtetele.
             </p>
           </ScrollReveal>

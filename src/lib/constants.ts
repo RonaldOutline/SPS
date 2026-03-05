@@ -93,11 +93,11 @@ export const SERVICES: Service[] = [
 
 export const STATS: Stat[] = [
   {
-    value: "15",
+    value: "20",
     suffix: "+",
     label: "Aastat kogemust",
     description:
-      "Üle 15 aasta erakordset ärikinnisvara koristusteenust üle kogu Harjumaa.",
+      "Üle 20 aasta erakordset ärikinnisvara koristusteenust üle kogu Harjumaa.",
   },
   {
     value: "160",
@@ -107,11 +107,11 @@ export const STATS: Stat[] = [
       "Meid usaldavad sajad ettevõtted, alates iduettevõtetest kuni suurkorporatsioonideni.",
   },
   {
-    value: "99.7",
-    suffix: "%",
-    label: "Rahulolu määr",
+    value: "200",
+    suffix: "+",
+    label: "Töötajat",
     description:
-      "Meie pühendumust kvaliteedile peegeldab valdkonna kõrgeim klientide rahulolu.",
+      "Meie kasvav meeskond tagab kvaliteetse teenuse ka kõige mahukamatele objektidele.",
   },
 ];
 

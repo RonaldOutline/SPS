@@ -17,7 +17,7 @@ type HeroStat = {
 const HERO_STATS: HeroStat[] = [
   { value: "160", suffix: "+", label: "Äriklienti" },
   { value: "20", suffix: "+", label: "Aastat kogemust" },
-  { value: "99.8", suffix: "%", label: "Rahulolu määr" },
+  { value: "200", suffix: "+", label: "Töötajat" },
   { value: null, display: "24/7", label: "Alati valmis" },
 ];
 
