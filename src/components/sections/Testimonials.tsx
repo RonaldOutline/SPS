@@ -1,27 +1,79 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useCallback, useRef, useLayoutEffect } from "react";
+import { motion, useMotionValue, animate } from "framer-motion";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
 import { TESTIMONIALS } from "@/lib/constants";
 import Section from "@/components/layout/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 
+const GAP = 24;
+const CARD_RATIO = 0.78;
+
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const total = TESTIMONIALS.length;
 
-  const next = useCallback(() => setCurrent((p) => (p + 1) % total), [total]);
-  const prev = useCallback(() => setCurrent((p) => (p - 1 + total) % total), [total]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardWidthRef = useRef(0);
+  const pendingReset = useRef(false);
+  const x = useMotionValue(0);
+
+  // Measure container and set initial offset
+  useEffect(() => {
+    const measure = () => {
+      if (!containerRef.current) return;
+      const cw = containerRef.current.offsetWidth * CARD_RATIO;
+      cardWidthRef.current = cw;
+      if (!pendingReset.current) x.set(-(cw + GAP));
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [x]);
+
+  // Reset x to center after setCurrent causes a re-render (no visible flash)
+  useLayoutEffect(() => {
+    if (pendingReset.current) {
+      pendingReset.current = false;
+      x.set(-(cardWidthRef.current + GAP));
+    }
+  });
+
+  const goNext = useCallback(async () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    const cw = cardWidthRef.current;
+    await animate(x, -(cw + GAP) - (cw + GAP), { duration: 0.45, ease: "easeInOut" });
+    pendingReset.current = true;
+    setCurrent((p) => (p + 1) % total);
+    setIsAnimating(false);
+  }, [isAnimating, total, x]);
+
+  const goPrev = useCallback(async () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    const cw = cardWidthRef.current;
+    await animate(x, 0, { duration: 0.45, ease: "easeInOut" });
+    pendingReset.current = true;
+    setCurrent((p) => (p - 1 + total) % total);
+    setIsAnimating(false);
+  }, [isAnimating, total, x]);
 
   useEffect(() => {
     if (isPaused) return;
-    const timer = setInterval(next, 6000);
+    const timer = setInterval(goNext, 6000);
     return () => clearInterval(timer);
-  }, [isPaused, next]);
+  }, [isPaused, goNext]);
 
-  const getIndex = (offset: number) => (current + offset + total) % total;
+  const getIdx = (offset: number) => (current + offset + total) % total;
+  const slides = [
+    TESTIMONIALS[getIdx(-1)],
+    TESTIMONIALS[current],
+    TESTIMONIALS[getIdx(1)],
+  ];
 
   return (
     <Section id="testimonials">
@@ -31,71 +83,67 @@ export default function Testimonials() {
       />
 
       <div
-        className="relative"
+        ref={containerRef}
+        className="relative overflow-hidden"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
-        {/* Slider track */}
-        <div className="flex items-center gap-4 overflow-hidden px-4">
-          {/* Previous card – peek */}
-          <div className="flex-shrink-0 w-[20%] opacity-40 scale-95 origin-right transition-all duration-500 pointer-events-none select-none">
-            <TestimonialCard testimonial={TESTIMONIALS[getIndex(-1)]} />
-          </div>
+        {/* Edge fades */}
+        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-[#F8FAFE] to-transparent pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-[#F8FAFE] to-transparent pointer-events-none" />
 
-          {/* Active card */}
-          <div className="flex-shrink-0 w-[56%] transition-all duration-500 relative z-10">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current}
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-              >
-                <TestimonialCard testimonial={TESTIMONIALS[current]} active />
-              </motion.div>
-            </AnimatePresence>
-          </div>
+        {/* Sliding track */}
+        <motion.div className="flex" style={{ x, gap: GAP }}>
+          {slides.map((t, i) => (
+            <div
+              key={`${current}-${i}`}
+              style={{ width: `${CARD_RATIO * 100}%` }}
+              className="flex-shrink-0"
+            >
+              <TestimonialCard testimonial={t} active={i === 1} />
+            </div>
+          ))}
+        </motion.div>
+      </div>
 
-          {/* Next card – peek */}
-          <div className="flex-shrink-0 w-[20%] opacity-40 scale-95 origin-left transition-all duration-500 pointer-events-none select-none">
-            <TestimonialCard testimonial={TESTIMONIALS[getIndex(1)]} />
-          </div>
+      {/* Navigation */}
+      <div className="flex items-center justify-center gap-4 mt-8">
+        <button
+          onClick={goPrev}
+          className="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-glass-hover transition-colors"
+          aria-label="Eelmine arvustus"
+        >
+          <ChevronLeft className="w-5 h-5 text-text-secondary" />
+        </button>
+
+        <div className="flex gap-2">
+          {TESTIMONIALS.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => {
+                if (!isAnimating) {
+                  const dir = i > current ? 1 : -1;
+                  if (dir === 1) goNext();
+                  else goPrev();
+                }
+              }}
+              aria-label={`Mine arvustuse juurde ${i + 1}`}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                i === current
+                  ? "w-6 bg-accent-primary"
+                  : "w-2 bg-text-muted/30 hover:bg-text-muted/50"
+              }`}
+            />
+          ))}
         </div>
 
-        {/* Navigation */}
-        <div className="flex items-center justify-center gap-4 mt-8">
-          <button
-            onClick={prev}
-            className="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-glass-hover transition-colors"
-            aria-label="Eelmine arvustus"
-          >
-            <ChevronLeft className="w-5 h-5 text-text-secondary" />
-          </button>
-
-          <div className="flex gap-2">
-            {TESTIMONIALS.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrent(i)}
-                aria-label={`Mine arvustuse juurde ${i + 1}`}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  i === current
-                    ? "w-6 bg-accent-primary"
-                    : "w-2 bg-text-muted/30 hover:bg-text-muted/50"
-                }`}
-              />
-            ))}
-          </div>
-
-          <button
-            onClick={next}
-            className="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-glass-hover transition-colors"
-            aria-label="Järgmine arvustus"
-          >
-            <ChevronRight className="w-5 h-5 text-text-secondary" />
-          </button>
-        </div>
+        <button
+          onClick={goNext}
+          className="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-glass-hover transition-colors"
+          aria-label="Järgmine arvustus"
+        >
+          <ChevronRight className="w-5 h-5 text-text-secondary" />
+        </button>
       </div>
     </Section>
   );

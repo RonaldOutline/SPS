@@ -12,7 +12,7 @@ import Process from "@/components/sections/Process";
 import Testimonials from "@/components/sections/Testimonials";
 import Sustainability from "@/components/sections/Sustainability";
 import ContactForm from "@/components/sections/ContactForm";
-import VideoBlock from "@/components/sections/VideoBlock";
+
 import FloatingCTA from "@/components/ui/FloatingCTA";
 
 export default function Home() {
@@ -29,7 +29,7 @@ export default function Home() {
         <Industries />
         <Process />
         <Testimonials />
-        <VideoBlock />
+
         <Sustainability />
         <ContactForm />
       </main>
