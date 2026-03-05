@@ -10,16 +10,10 @@ import SectionHeading from "@/components/ui/SectionHeading";
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const total = TESTIMONIALS.length;
 
-  const next = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % TESTIMONIALS.length);
-  }, []);
-
-  const prev = useCallback(() => {
-    setCurrent(
-      (prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length
-    );
-  }, []);
+  const next = useCallback(() => setCurrent((p) => (p + 1) % total), [total]);
+  const prev = useCallback(() => setCurrent((p) => (p - 1 + total) % total), [total]);
 
   useEffect(() => {
     if (isPaused) return;
@@ -27,7 +21,7 @@ export default function Testimonials() {
     return () => clearInterval(timer);
   }, [isPaused, next]);
 
-  const testimonial = TESTIMONIALS[current];
+  const getIndex = (offset: number) => (current + offset + total) % total;
 
   return (
     <Section id="testimonials">
@@ -37,48 +31,37 @@ export default function Testimonials() {
       />
 
       <div
-        className="relative max-w-3xl mx-auto"
+        className="relative"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={current}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="glass rounded-2xl p-8 md:p-10"
-          >
-            {/* Quote icon */}
-            <Quote className="w-10 h-10 text-accent-primary opacity-20 mb-4" />
+        {/* Slider track */}
+        <div className="flex items-center gap-4 overflow-hidden px-4">
+          {/* Previous card – peek */}
+          <div className="flex-shrink-0 w-[20%] opacity-40 scale-95 origin-right transition-all duration-500 pointer-events-none select-none">
+            <TestimonialCard testimonial={TESTIMONIALS[getIndex(-1)]} />
+          </div>
 
-            {/* Stars */}
-            <div className="flex gap-1 mb-5">
-              {Array.from({ length: testimonial.stars }).map((_, i) => (
-                <Star
-                  key={i}
-                  className="w-5 h-5 fill-gold text-gold"
-                />
-              ))}
-            </div>
+          {/* Active card */}
+          <div className="flex-shrink-0 w-[56%] transition-all duration-500 relative z-10">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={current}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.35, ease: "easeInOut" }}
+              >
+                <TestimonialCard testimonial={TESTIMONIALS[current]} active />
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-            {/* Quote text */}
-            <blockquote className="text-text-primary text-lg md:text-xl leading-relaxed italic mb-6">
-              &ldquo;{testimonial.quote}&rdquo;
-            </blockquote>
-
-            {/* Author */}
-            <div>
-              <p className="font-outfit font-bold text-text-primary">
-                {testimonial.name}
-              </p>
-              <p className="text-text-secondary text-sm">
-                {testimonial.title}, {testimonial.company}
-              </p>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+          {/* Next card – peek */}
+          <div className="flex-shrink-0 w-[20%] opacity-40 scale-95 origin-left transition-all duration-500 pointer-events-none select-none">
+            <TestimonialCard testimonial={TESTIMONIALS[getIndex(1)]} />
+          </div>
+        </div>
 
         {/* Navigation */}
         <div className="flex items-center justify-center gap-4 mt-8">
@@ -96,10 +79,10 @@ export default function Testimonials() {
                 key={i}
                 onClick={() => setCurrent(i)}
                 aria-label={`Mine arvustuse juurde ${i + 1}`}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                className={`h-2 rounded-full transition-all duration-300 ${
                   i === current
-                    ? "bg-accent-primary w-6"
-                    : "bg-text-muted/30 hover:bg-text-muted/50"
+                    ? "w-6 bg-accent-primary"
+                    : "w-2 bg-text-muted/30 hover:bg-text-muted/50"
                 }`}
               />
             ))}
@@ -115,5 +98,39 @@ export default function Testimonials() {
         </div>
       </div>
     </Section>
+  );
+}
+
+function TestimonialCard({
+  testimonial,
+  active,
+}: {
+  testimonial: (typeof TESTIMONIALS)[number];
+  active?: boolean;
+}) {
+  return (
+    <div
+      className={`glass rounded-2xl p-6 md:p-8 transition-shadow duration-300 ${
+        active ? "shadow-lg shadow-accent-primary/10" : ""
+      }`}
+    >
+      <Quote className="w-8 h-8 text-accent-primary opacity-20 mb-3" />
+      <div className="flex gap-1 mb-4">
+        {Array.from({ length: testimonial.stars }).map((_, i) => (
+          <Star key={i} className="w-4 h-4 fill-gold text-gold" />
+        ))}
+      </div>
+      <blockquote className="text-text-primary text-base md:text-lg leading-relaxed italic mb-5">
+        &ldquo;{testimonial.quote}&rdquo;
+      </blockquote>
+      <div>
+        <p className="font-outfit font-bold text-text-primary text-sm">
+          {testimonial.name}
+        </p>
+        <p className="text-text-secondary text-xs">
+          {testimonial.title}, {testimonial.company}
+        </p>
+      </div>
+    </div>
   );
 }

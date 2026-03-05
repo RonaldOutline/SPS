@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
 import LogoBar from "@/components/sections/LogoBar";
 import Services from "@/components/sections/Services";
+import WhyProfessional from "@/components/sections/WhyProfessional";
 import Stats from "@/components/sections/Stats";
 import Industries from "@/components/sections/Industries";
 import Process from "@/components/sections/Process";
@@ -23,6 +24,7 @@ export default function Home() {
         <Hero />
         <LogoBar />
         <Services />
+        <WhyProfessional />
         <Stats />
         <Industries />
         <Process />

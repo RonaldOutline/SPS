@@ -12,7 +12,7 @@ const SPEED = 0.04; // px per ms  ≈ 40 px/s
 function LogoPlaceholder({ name }: { name: string }) {
   return (
     <div className="flex items-center justify-center px-10 shrink-0">
-      <span className="font-outfit font-bold text-base md:text-lg whitespace-nowrap tracking-widest text-text-muted opacity-40 hover:opacity-90 hover:text-accent-primary transition-all duration-300 cursor-default select-none">
+      <span className="font-outfit font-bold text-base md:text-lg whitespace-nowrap tracking-widest text-text-muted opacity-65 hover:opacity-90 hover:text-accent-primary transition-all duration-300 cursor-default select-none">
         {name}
       </span>
     </div>
