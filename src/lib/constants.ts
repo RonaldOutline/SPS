@@ -208,34 +208,26 @@ export const PROCESS_STEPS: ProcessStep[] = [
 export const TESTIMONIALS: Testimonial[] = [
   {
     quote:
-      "SPS muutis meie kontori keskkonna täielikult. Nende tähelepanu detailidele on üllatav — iga pind läigib ning meie meeskond on märganud tõelist paranemist töökoha meeleolus.",
-    name: "Maria Kask",
-    title: "Kinnisvarajuht",
-    company: "Nordic Tech Solutions",
+      "Eile käis meil Soomest, Sauna from Finland, esindaja tegemas privaatsaunade auditit. Saime kiita saunade puhtuse eest. Suured tänud saunade koristajatele.",
+    name: "",
+    title: "",
+    company: "Sokos Hotel Viru Tallinn",
     stars: 5,
   },
   {
     quote:
-      "Oleme teinud koostööd mitme koristusfirmaga, kuid ükski neist ei suuda konkureerida SPS-i järjepidevuse ja professionaalsusega. Nad kohtlevad meie kaupluseid nagu enda omi.",
-    name: "Andrei Volkov",
-    title: "Operatsioonijuht",
-    company: "Baltic Retail Group",
+      "Tahame kiita puhastusteenindajat. Võrreldes eelmiste teenusepakkujatega nagu öö ja päev! Viisakad & positiivsed. Ning WC-s on ka nüüd alati kõik tarvikud olemas.",
+    name: "",
+    title: "",
+    company: "Norma",
     stars: 5,
   },
   {
     quote:
-      "Nende teostatud ehitusjärgne koristus meie uues peakorteris oli laitmatu. Sissekolimisvalmis enne tähtaega. Soovitan nende spetsialiseeritud teenuseid kõigile.",
-    name: "Laura Tamm",
-    title: "Projektijuht",
-    company: "EstBuild Properties",
-    stars: 5,
-  },
-  {
-    quote:
-      "Nende tervishoiu-tasemega desinfitseerimisprotokollid andsid meile keerulistes olukordades täieliku kindlustunde. Professionaalne, põhjalik ja alati usaldusväärne.",
-    name: "Dr. Henrik Pärn",
-    title: "Peaarst",
-    company: "Tallinna Tervisekeskus",
+      "Oleme väga rahul, kuidas meil toimetab tänane koristaja SPS'ist ja loodame, et ta jätkab oma tööd sama hästi.",
+    name: "",
+    title: "",
+    company: "Teledyne Flir",
     stars: 5,
   },
 ];

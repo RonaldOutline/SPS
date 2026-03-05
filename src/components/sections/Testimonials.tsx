@@ -172,11 +172,13 @@ function TestimonialCard({
         &ldquo;{testimonial.quote}&rdquo;
       </blockquote>
       <div>
-        <p className="font-outfit font-bold text-text-primary text-sm">
-          {testimonial.name}
-        </p>
-        <p className="text-text-secondary text-xs">
-          {testimonial.title}, {testimonial.company}
+        {testimonial.name && (
+          <p className="font-outfit font-bold text-text-primary text-sm">
+            {testimonial.name}
+          </p>
+        )}
+        <p className="text-text-secondary text-xs font-semibold">
+          {[testimonial.title, testimonial.company].filter(Boolean).join(", ")}
         </p>
       </div>
     </div>
