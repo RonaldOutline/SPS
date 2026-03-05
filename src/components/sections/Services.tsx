@@ -9,6 +9,8 @@ import {
   HardHat,
   PanelsTopLeft,
   ShieldCheck,
+  Layers,
+  Droplet,
   ArrowRight,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -22,22 +24,31 @@ const iconMap: Record<string, LucideIcon> = {
   HardHat,
   PanelsTopLeft,
   ShieldCheck,
+  Layers,
+  Droplet,
 };
+
+// 2 large | 4 medium | 2 small
+const LARGE = 2;
+const MEDIUM = 6; // index 2–5
 
 export default function Services() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-8% 0px" });
 
+  const large = SERVICES.slice(0, LARGE);
+  const medium = SERVICES.slice(LARGE, MEDIUM);
+  const small = SERVICES.slice(MEDIUM);
+
   return (
-    <section id="services" className="py-20 md:py-28 bg-white">
+    <section id="services" className="py-20 md:py-28 bg-bg-primary">
       <Container>
-        {/* Heading */}
         <motion.div
+          ref={ref}
           className="text-center mb-12"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          ref={ref}
         >
           <span className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-primary block mb-3">
             Teenused
@@ -51,44 +62,91 @@ export default function Services() {
           </p>
         </motion.div>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {SERVICES.map((service, i) => {
+        {/* Grid: 4 columns */}
+        <div className="grid grid-cols-4 gap-4">
+          {/* 2 large cards — col-span-2 each */}
+          {large.map((service, i) => {
             const Icon = iconMap[service.icon];
             return (
               <motion.article
                 key={service.title}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 28 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.1 + i * 0.09, ease: "easeOut" }}
-                className="group relative rounded-2xl border border-gray-100 bg-white p-7 cursor-pointer overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
-                whileHover={{ y: -6 }}
+                transition={{ duration: 0.5, delay: 0.05 + i * 0.1, ease: "easeOut" }}
+                className="col-span-2 group relative rounded-2xl bg-white border border-gray-100 p-10 cursor-pointer overflow-hidden hover:shadow-md transition-shadow duration-300"
+                whileHover={{ y: -5 }}
               >
-                {/* Gradient reveal on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-accent-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none" />
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-primary to-accent-secondary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-16 h-16 rounded-2xl bg-accent-primary/10 flex items-center justify-center mb-6 group-hover:bg-accent-primary/20 transition-colors duration-300">
+                    {Icon && <Icon className="w-8 h-8 text-accent-primary" />}
+                  </div>
+                  <h3 className="font-outfit font-bold text-xl text-text-primary mb-4 leading-snug">
+                    {service.title}
+                  </h3>
+                  <span className="inline-flex items-center gap-1.5 text-accent-primary text-sm font-semibold mt-auto">
+                    Vaata lähemalt
+                    <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1.5" />
+                  </span>
+                </div>
+              </motion.article>
+            );
+          })}
 
-                {/* Icon */}
-                <motion.div
-                  className="w-13 h-13 rounded-xl bg-gradient-to-br from-accent-primary/10 to-accent-secondary/10 flex items-center justify-center mb-5 group-hover:from-accent-primary/20 group-hover:to-accent-secondary/20 transition-all duration-300"
-                  whileHover={{ scale: 1.08 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {Icon && <Icon className="w-6 h-6 text-accent-primary" />}
-                </motion.div>
+          {/* 4 medium cards — col-span-1 each */}
+          {medium.map((service, i) => {
+            const Icon = iconMap[service.icon];
+            return (
+              <motion.article
+                key={service.title}
+                initial={{ opacity: 0, y: 28 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.15 + i * 0.08, ease: "easeOut" }}
+                className="col-span-1 group relative rounded-2xl bg-white border border-gray-100 p-7 cursor-pointer overflow-hidden hover:shadow-md transition-shadow duration-300"
+                whileHover={{ y: -5 }}
+              >
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-primary to-accent-secondary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-12 h-12 rounded-xl bg-accent-primary/10 flex items-center justify-center mb-4 group-hover:bg-accent-primary/20 transition-colors duration-300">
+                    {Icon && <Icon className="w-6 h-6 text-accent-primary" />}
+                  </div>
+                  <h3 className="font-outfit font-bold text-base text-text-primary mb-4 leading-snug">
+                    {service.title}
+                  </h3>
+                  <span className="inline-flex items-center gap-1 text-accent-primary text-xs font-semibold mt-auto">
+                    Vaata lähemalt
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+                  </span>
+                </div>
+              </motion.article>
+            );
+          })}
 
-                {/* Title */}
-                <h3 className="font-outfit font-bold text-lg text-text-primary mb-4 leading-snug">
-                  {service.title}
-                </h3>
-
-                {/* Link */}
-                <span className="inline-flex items-center gap-1.5 text-accent-primary text-sm font-semibold">
-                  Vaata lähemalt
-                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1.5" />
-                </span>
-
-                {/* Bottom accent border on hover */}
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-primary to-accent-secondary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
+          {/* 2 small cards — col-span-1 each, horizontal compact */}
+          {small.map((service, i) => {
+            const Icon = iconMap[service.icon];
+            return (
+              <motion.article
+                key={service.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.5 + i * 0.08, ease: "easeOut" }}
+                className="col-span-1 group relative rounded-2xl bg-white border border-gray-100 p-5 cursor-pointer overflow-hidden hover:shadow-md transition-shadow duration-300 flex items-center gap-4"
+                whileHover={{ y: -4 }}
+              >
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-primary to-accent-secondary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                <div className="w-10 h-10 rounded-lg bg-accent-primary/10 flex items-center justify-center shrink-0 group-hover:bg-accent-primary/20 transition-colors duration-300">
+                  {Icon && <Icon className="w-5 h-5 text-accent-primary" />}
+                </div>
+                <div className="flex flex-col min-w-0">
+                  <h3 className="font-outfit font-bold text-sm text-text-primary leading-snug mb-1">
+                    {service.title}
+                  </h3>
+                  <span className="inline-flex items-center gap-1 text-accent-primary text-xs font-semibold">
+                    Vaata lähemalt
+                    <ArrowRight className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-1" />
+                  </span>
+                </div>
               </motion.article>
             );
           })}

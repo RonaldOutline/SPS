@@ -75,7 +75,7 @@ export default function Testimonials() {
   ];
 
   return (
-    <section id="testimonials" className="py-20 md:py-28 bg-bg-secondary/40" ref={sectionRef}>
+    <section id="testimonials" className="py-20 md:py-28 bg-bg-primary" ref={sectionRef}>
       <Container>
         {/* Heading */}
         <motion.div

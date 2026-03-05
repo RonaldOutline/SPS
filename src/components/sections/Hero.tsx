@@ -7,38 +7,34 @@ import Container from "@/components/layout/Container";
 import Button from "@/components/ui/Button";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
 
-type HeroStat = {
-  value: string | null;
-  suffix?: string;
-  display?: string;
-  label: string;
-  icon?: string;
-};
-
-const HERO_STATS: HeroStat[] = [
-  { value: "200", suffix: "+", label: "Töötajat", icon: "👥" },
-  { value: null, display: "ISO", label: "Sertifitseeritud", icon: "✓" },
-  { value: "160", suffix: "+", label: "Äriklienti", icon: "🏢" },
+const HERO_STATS = [
+  { value: "200", suffix: "+", label: "Töötajat" },
+  { value: null, display: "ISO", label: "Sertifitseeritud" },
+  { value: "160", suffix: "+", label: "Äriklienti" },
 ];
 
 export default function Hero() {
   const headlineWords = HERO.headline.split(" ");
 
   return (
-    <section className="relative min-h-[calc(100vh-5rem)] flex items-end overflow-hidden pb-10 md:pb-14">
+    <section className="relative min-h-[calc(100vh-5rem)] flex flex-col overflow-hidden">
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/SPShero2.jpg')" }}
       />
-      {/* Dark overlay — strong on left, fades right */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#071428]/92 via-[#071428]/65 to-[#071428]/15" />
-      {/* Subtle vertical gradient at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#071428]/40 to-transparent" />
+      {/* Overlay: strong left, fades to transparent right */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#071428]/92 via-[#071428]/60 to-[#071428]/10" />
 
-      <Container className="relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-end">
-          {/* Left: Text content */}
+      <Container className="relative z-10 w-full flex flex-col flex-1">
+        {/*
+          Two-column grid: text left, stat chips right.
+          items-end aligns both columns to their bottom edge
+          so the stat chips sit at the same level as the CTA button.
+        */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-end flex-1 py-12 md:py-16">
+
+          {/* ── Left: Text content ── */}
           <div className="flex flex-col items-start gap-5 md:gap-6">
             {/* Badge */}
             <motion.div
@@ -125,41 +121,34 @@ export default function Hero() {
               {HERO.subheadline}
             </motion.p>
 
-            {/* CTA Button */}
+            {/* CTA — this is the bottom-most element, aligns with stats on right */}
             <motion.div
-              className="flex flex-wrap gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.5,
-                delay: 0.85,
-                type: "spring",
-                stiffness: 100,
-                damping: 15,
-              }}
+              transition={{ duration: 0.5, delay: 0.85, type: "spring", stiffness: 100, damping: 15 }}
             >
               <Button variant="primary" size="lg" href="#contact">
                 {HERO.ctaPrimary}
               </Button>
-              <Button variant="outline" size="lg" href="#services">
-                {HERO.ctaSecondary}
-              </Button>
             </motion.div>
+          </div>
 
-            {/* Mobile stats — visible only on small screens */}
+          {/* ── Right: Stat chips in ONE horizontal row at bottom ── */}
+          <div className="flex flex-col items-start lg:items-end justify-end gap-3">
+            {/* Mobile: shown below CTA, desktop: hidden here (shown in row below) */}
             <motion.div
-              className="flex flex-wrap gap-3 mt-1 lg:hidden"
+              className="flex flex-row flex-wrap gap-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.05, ease: "easeOut" }}
+              transition={{ duration: 0.6, delay: 1.0, ease: "easeOut" }}
             >
               {HERO_STATS.map((stat, i) => (
                 <motion.div
                   key={stat.label}
-                  initial={{ opacity: 0, scale: 0.85 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.45, delay: 1.15 + i * 0.09, ease: "backOut" }}
-                  className="flex flex-col items-center justify-center rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 px-5 py-3 min-w-[85px]"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.45, delay: 1.05 + i * 0.1, ease: "backOut" }}
+                  className="flex flex-col items-center justify-center rounded-xl bg-white/12 backdrop-blur-md border border-white/20 px-5 py-3 min-w-[90px] hover:bg-white/18 transition-colors duration-300"
                 >
                   <span className="font-outfit font-bold text-white text-xl leading-tight">
                     {stat.value !== null ? (
@@ -175,39 +164,12 @@ export default function Hero() {
               ))}
             </motion.div>
           </div>
-
-          {/* Right: Stats chips — desktop only, aligned to bottom-right */}
-          <div className="hidden lg:flex flex-col items-end justify-end gap-3 pb-2">
-            {HERO_STATS.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 1.0 + i * 0.12, ease: "easeOut" }}
-                className="flex items-center gap-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 px-6 py-3.5 hover:bg-white/15 transition-colors duration-300 min-w-[200px]"
-              >
-                <span className="text-2xl">{stat.icon}</span>
-                <div>
-                  <p className="font-outfit font-bold text-white text-2xl leading-tight">
-                    {stat.value !== null ? (
-                      <AnimatedCounter value={stat.value} suffix={stat.suffix} duration={2} className="text-white" />
-                    ) : (
-                      stat.display
-                    )}
-                  </p>
-                  <p className="text-white/60 text-xs font-medium leading-tight">
-                    {stat.label}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </Container>
 
-      {/* Scroll Indicator */}
+      {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.6, duration: 0.5 }}

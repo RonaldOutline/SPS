@@ -24,100 +24,91 @@ export default function Stats() {
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
 
   return (
-    <section
-      id="why-us"
-      ref={ref}
-      className="bg-[#071428] py-20 md:py-28 relative overflow-hidden"
-    >
-      {/* Background radial glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(14,165,233,0.10)_0%,transparent_60%)] pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_80%,rgba(6,182,212,0.06)_0%,transparent_50%)] pointer-events-none" />
+    <section id="why-us" ref={ref} className="py-20 md:py-28 bg-bg-primary">
+      <Container>
 
-      <Container className="relative z-10">
-        {/* ── Top block: About text + Big stats ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start mb-12 md:mb-16">
-          {/* Left: About heading + text */}
+        {/* ── Row 1: Heading (left) + Paragraph text (right) ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start mb-14">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -24 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.65, ease: "easeOut" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <motion.div
-              className="w-10 h-1 rounded-full bg-accent-primary mb-5"
-              initial={{ scaleX: 0, originX: 0 }}
-              animate={isInView ? { scaleX: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-            />
-            <h2 className="font-outfit font-bold text-white leading-tight mb-5"
-              style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}>
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-primary block mb-4">
+              Miks valida meid
+            </span>
+            <h2
+              className="font-outfit font-bold text-[#071428] leading-tight"
+              style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}
+            >
               20 aastase ajalooga puhastusettevõte
             </h2>
-            <p className="text-slate-400 leading-relaxed text-base">
-              Koristusfirma SPS Grupp ajalugu sai alguse 2006. aastal. Tänaseks
-              oleme kasvanud üheks Harjumaa juhtivaks kinnisvarahaldus
-              ettevõtteks. Meil töötab üle 200 töötaja ning suudame leida
-              optimaalse lahenduse nii suurtele, kui ka väga suurtele
-              ettevõtetele.
-            </p>
           </motion.div>
 
-          {/* Right: 3 big stat numbers */}
-          <div className="grid grid-cols-3 gap-4 lg:gap-6 items-center">
-            {STATS.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.2 + i * 0.13, ease: "easeOut" }}
-                className="text-center"
+          <motion.p
+            className="text-text-secondary leading-relaxed text-base lg:pt-12"
+            initial={{ opacity: 0, x: 24 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+          >
+            Koristusfirma SPS Grupp ajalugu sai alguse 2006. aastal. Tänaseks
+            oleme kasvanud üheks Harjumaa juhtivaks kinnisvarahaldus
+            ettevõtteks. Meil töötab üle 200 töötaja ning suudame leida
+            optimaalse lahenduse nii suurtele, kui ka väga suurtele
+            ettevõtetele.
+          </motion.p>
+        </div>
+
+        {/* ── Row 2: Three stat numbers in ONE row ── */}
+        <div className="grid grid-cols-3 gap-6 mb-14">
+          {STATS.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 + i * 0.13, ease: "easeOut" }}
+              className="text-center"
+            >
+              <div
+                className="font-outfit font-bold text-[#071428] mb-1 tabular-nums"
+                style={{ fontSize: "clamp(3rem, 6vw, 5rem)" }}
               >
-                {/* Accent line above number */}
-                <motion.div
-                  className="w-8 h-0.5 bg-accent-primary mx-auto mb-3 rounded-full"
-                  initial={{ scaleX: 0 }}
-                  animate={isInView ? { scaleX: 1 } : {}}
-                  transition={{ duration: 0.4, delay: 0.35 + i * 0.13 }}
+                <AnimatedCounter
+                  value={stat.value}
+                  suffix={stat.suffix}
+                  className="text-[#071428]"
+                  duration={2.5}
                 />
-                <div className="font-outfit font-bold text-white mb-1"
-                  style={{ fontSize: "clamp(2.5rem, 4.5vw, 4rem)" }}>
-                  <AnimatedCounter
-                    value={stat.value}
-                    suffix={stat.suffix}
-                    className="text-white"
-                    duration={2.5}
-                  />
-                </div>
-                <p className="text-slate-400 text-sm font-medium leading-tight">
-                  {stat.label}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+              <p className="text-text-secondary text-sm font-semibold uppercase tracking-wider">
+                {stat.label}
+              </p>
+            </motion.div>
+          ))}
         </div>
 
         {/* ── Divider ── */}
         <motion.div
-          className="border-t border-slate-800 mb-12 md:mb-14"
+          className="border-t border-gray-200 mb-12"
           initial={{ scaleX: 0, originX: 0 }}
           animate={isInView ? { scaleX: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.8, delay: 0.5 }}
         />
 
-        {/* ── Bottom block: Two trust cards ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-          {/* Left trust card: Eco / Process */}
+        {/* ── Row 3: Two trust blocks ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {/* Left trust block */}
           <motion.div
-            className="rounded-2xl border border-white/8 bg-white/5 backdrop-blur-sm p-7 md:p-8"
-            initial={{ opacity: 0, y: 30 }}
+            className="rounded-2xl bg-white border border-gray-100 p-7 md:p-8 shadow-sm"
+            initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
-            whileHover={{ backgroundColor: "rgba(255,255,255,0.07)", borderColor: "rgba(255,255,255,0.14)" }}
+            transition={{ duration: 0.55, delay: 0.6, ease: "easeOut" }}
           >
             <div className="flex items-start gap-4 mb-5">
-              <div className="w-11 h-11 rounded-xl bg-accent-primary/15 flex items-center justify-center shrink-0">
+              <div className="w-11 h-11 rounded-xl bg-accent-primary/10 flex items-center justify-center shrink-0">
                 <CheckCircle className="w-5 h-5 text-accent-primary" />
               </div>
-              <p className="text-white font-outfit font-bold text-base leading-snug pt-1">
+              <p className="text-text-primary font-outfit font-bold text-base leading-snug pt-1">
                 Usume puhastamisse, mis ei käi keldikorra arvelt. Kasutame
                 puhastushendeid ja protsessuid, mis vähendavad allergeeid ning
                 toetavad kiidava kvaliteediga iga tööobjekti.
@@ -125,37 +116,30 @@ export default function Stats() {
             </div>
             <ul className="space-y-2.5 pl-1">
               {ECO_POINTS.map((point, i) => (
-                <motion.li
-                  key={i}
-                  className="flex items-start gap-2.5"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.7 + i * 0.07 }}
-                >
+                <li key={i} className="flex items-start gap-2.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-primary shrink-0 mt-1.5" />
-                  <span className="text-slate-400 text-sm leading-relaxed">{point}</span>
-                </motion.li>
+                  <span className="text-text-secondary text-sm leading-relaxed">{point}</span>
+                </li>
               ))}
             </ul>
           </motion.div>
 
-          {/* Right trust card: Guarantee */}
+          {/* Right trust block */}
           <motion.div
-            className="rounded-2xl border border-white/8 bg-white/5 backdrop-blur-sm p-7 md:p-8"
-            initial={{ opacity: 0, y: 30 }}
+            className="rounded-2xl bg-white border border-gray-100 p-7 md:p-8 shadow-sm"
+            initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.72, ease: "easeOut" }}
-            whileHover={{ backgroundColor: "rgba(255,255,255,0.07)", borderColor: "rgba(255,255,255,0.14)" }}
+            transition={{ duration: 0.55, delay: 0.72, ease: "easeOut" }}
           >
             <div className="flex items-start gap-4 mb-5">
-              <div className="w-11 h-11 rounded-xl bg-accent-primary/15 flex items-center justify-center shrink-0">
+              <div className="w-11 h-11 rounded-xl bg-accent-primary/10 flex items-center justify-center shrink-0">
                 <ShieldCheck className="w-5 h-5 text-accent-primary" />
               </div>
               <div className="pt-0.5">
-                <p className="text-white font-outfit font-bold text-base leading-snug">
+                <p className="text-text-primary font-outfit font-bold text-base leading-snug">
                   SPS Grupp tegutseb usaldustatult
                 </p>
-                <p className="text-slate-400 text-sm mt-2 leading-relaxed">
+                <p className="text-text-secondary text-sm mt-2 leading-relaxed">
                   Vastutame täielikult ettevõtte korralduste tegemisel ning
                   anname 100% garantii tahitud töö kvaliteedile.
                 </p>
@@ -163,20 +147,15 @@ export default function Stats() {
             </div>
             <ul className="space-y-2.5 pl-1">
               {GUARANTEE_POINTS.map((point, i) => (
-                <motion.li
-                  key={i}
-                  className="flex items-start gap-2.5"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.82 + i * 0.07 }}
-                >
+                <li key={i} className="flex items-start gap-2.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-primary shrink-0 mt-1.5" />
-                  <span className="text-slate-400 text-sm leading-relaxed">{point}</span>
-                </motion.li>
+                  <span className="text-text-secondary text-sm leading-relaxed">{point}</span>
+                </li>
               ))}
             </ul>
           </motion.div>
         </div>
+
       </Container>
     </section>
   );

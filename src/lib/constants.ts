@@ -89,6 +89,16 @@ export const SERVICES: Service[] = [
     title: "Fassaadipesu",
     description: "",
   },
+  {
+    icon: "Layers",
+    title: "Vaipade puhastus",
+    description: "",
+  },
+  {
+    icon: "Droplet",
+    title: "Põrandate hooldus",
+    description: "",
+  },
 ];
 
 export const STATS: Stat[] = [
