@@ -113,15 +113,12 @@ export default function Navbar() {
         <Container>
           <nav className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <a href="#" className="flex items-center gap-2.5 shrink-0">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center shadow-sm">
-                <span className="text-white font-outfit font-bold text-sm">
-                  {COMPANY.name}
-                </span>
-              </div>
-              <span className={`font-outfit font-bold text-xl transition-colors duration-300 ${logoTextClass}`}>
-                {COMPANY.name}
-              </span>
+            <a href="#" className="flex items-center shrink-0">
+              <img
+                src="/SPS_LOGO.svg"
+                alt="SPS Grupp"
+                className={`h-8 w-auto transition-all duration-300 ${scrolled ? "brightness-0" : ""}`}
+              />
             </a>
 
             {/* Desktop Nav */}

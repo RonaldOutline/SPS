@@ -16,15 +16,8 @@ export default function Footer() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
             {/* Col 1: Company info */}
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center">
-                  <span className="text-white font-outfit font-bold text-xs">
-                    {COMPANY.name}
-                  </span>
-                </div>
-                <span className="font-outfit font-bold text-lg">
-                  {COMPANY.name}
-                </span>
+              <div className="mb-4">
+                <img src="/SPS_LOGO.svg" alt="SPS Grupp" className="h-7 w-auto" />
               </div>
               <p className="text-slate-400 text-sm leading-relaxed mb-6">
                 {COMPANY.description}
