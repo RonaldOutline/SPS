@@ -117,7 +117,7 @@ export default function Navbar() {
               <img
                 src="/SPS_LOGO.svg"
                 alt="SPS Grupp"
-                className={`h-8 w-auto transition-all duration-300 ${scrolled ? "brightness-0" : ""}`}
+                className={`h-12 w-auto transition-all duration-300 ${scrolled ? "brightness-0" : ""}`}
               />
             </a>
 
