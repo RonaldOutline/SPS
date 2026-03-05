@@ -23,12 +23,12 @@ export default function Home() {
         <Hero />
         <LogoBar />
         <Services />
-        <Stats />
         <Industries />
         <Process />
         <Testimonials />
         <VideoBlock />
         <Sustainability />
+        <Stats />
         <ContactForm />
       </main>
       <Footer />
