@@ -97,7 +97,7 @@ export const STATS: Stat[] = [
     suffix: "+",
     label: "Aastat kogemust",
     description:
-      "Üle 20 aasta erakordset ärikinnisvara koristusteenust üle kogu Harjumaa.",
+      "Üle 20 aasta kogemusi väga erinevate olukordade lahendamisel, pindade puhastamisel ning püsiva kvaliteedi kujundamisel.",
   },
   {
     value: "160",

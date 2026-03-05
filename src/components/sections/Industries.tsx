@@ -51,7 +51,7 @@ export default function Industries() {
 
         {/* Right 2 columns – image + description */}
         <div className="col-span-2 relative rounded-2xl overflow-hidden h-[460px]">
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="sync">
             <motion.div
               key={active}
               initial={{ x: "100%", opacity: 0 }}
