@@ -75,7 +75,7 @@ export default function Testimonials() {
   ];
 
   return (
-    <section id="testimonials" className="py-20 md:py-28 bg-bg-primary" ref={sectionRef}>
+    <section id="testimonials" className="py-20 md:py-28" ref={sectionRef}>
       <Container>
         {/* Heading */}
         <motion.div
@@ -107,8 +107,8 @@ export default function Testimonials() {
             onMouseLeave={() => setIsPaused(false)}
           >
             {/* Edge fades */}
-            <div className="absolute left-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-r from-bg-secondary/60 to-transparent pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-l from-bg-secondary/60 to-transparent pointer-events-none" />
+            <div className="absolute left-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-r from-[#f2f2f2]/80 to-transparent pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-l from-[#f2f2f2]/80 to-transparent pointer-events-none" />
 
             {/* Sliding track */}
             <motion.div className="flex" style={{ x, gap: GAP }}>

@@ -24,7 +24,7 @@ export default function Stats() {
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
 
   return (
-    <section id="why-us" ref={ref} className="py-20 md:py-28 bg-bg-primary">
+    <section id="why-us" ref={ref} className="py-20 md:py-28">
       <Container>
 
         {/* ── Row 1: Heading (left) + Paragraph text (right) ── */}

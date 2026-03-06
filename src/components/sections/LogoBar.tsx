@@ -47,7 +47,7 @@ export default function LogoBar() {
   });
 
   return (
-    <section id="trusted-by" className="py-12 md:py-16 bg-white" ref={sectionRef}>
+    <section id="trusted-by" className="py-12 md:py-16" ref={sectionRef}>
       <Container>
         <motion.div
           className="grid grid-cols-1 md:grid-cols-5 gap-5 items-stretch"
@@ -56,10 +56,10 @@ export default function LogoBar() {
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           {/* Left: Two scrolling logo rows */}
-          <div className="md:col-span-3 rounded-2xl bg-bg-primary overflow-hidden py-8 relative">
+          <div className="md:col-span-3 rounded-2xl bg-[#f2f2f2] overflow-hidden py-8 relative">
             {/* Fade edges */}
-            <div className="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-bg-primary to-transparent pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-bg-primary to-transparent pointer-events-none" />
+            <div className="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-[#f2f2f2] to-transparent pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-[#f2f2f2] to-transparent pointer-events-none" />
 
             {/* Row 1 */}
             <motion.div

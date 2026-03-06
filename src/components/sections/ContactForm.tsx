@@ -36,7 +36,7 @@ export default function ContactForm() {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-28 bg-bg-primary">
+    <section id="contact" className="py-20 md:py-28">
       <Container>
         <div ref={ref}>
           {/* Heading */}

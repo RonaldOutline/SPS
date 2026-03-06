@@ -11,7 +11,7 @@ export default function VideoBlock() {
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
 
   return (
-    <section id="video" className="py-20 md:py-28 bg-bg-primary">
+    <section id="video" className="py-20 md:py-28">
       <Container>
         <div ref={ref} className="max-w-4xl mx-auto">
           {/* Heading */}

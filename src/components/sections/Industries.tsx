@@ -14,7 +14,7 @@ export default function Industries() {
   const industry = INDUSTRIES[active];
 
   return (
-    <section id="industries" className="py-20 md:py-28 bg-white">
+    <section id="industries" className="py-20 md:py-28">
       <Container>
         {/* Heading */}
         <motion.div
