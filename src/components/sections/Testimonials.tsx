@@ -1,10 +1,17 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { useState, useEffect, useCallback, useRef, useLayoutEffect } from "react";
+import { motion, useMotionValue, animate, useInView } from "framer-motion";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
 import { TESTIMONIALS } from "@/lib/constants";
 import Container from "@/components/layout/Container";
+
+// Center card = 2/5 of container. Side cards each peek ~30%.
+// Math: x_initial = cw*(1/(2*CARD_RATIO) - 3/2) - GAP
+//   = cw*(1.25 - 1.5) - GAP = -0.25*cw - GAP
+// This centers the middle card in the container.
+const GAP = 20;
+const CARD_RATIO = 0.4;
 
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
@@ -13,21 +20,55 @@ export default function Testimonials() {
   const total = TESTIMONIALS.length;
 
   const sectionRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardWidthRef = useRef(0);
+  const xInitialRef = useRef(0);
+  const pendingReset = useRef(false);
   const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
+  const x = useMotionValue(0);
 
-  const goNext = useCallback(() => {
+  useEffect(() => {
+    const measure = () => {
+      if (!containerRef.current) return;
+      const cw = containerRef.current.offsetWidth * CARD_RATIO;
+      cardWidthRef.current = cw;
+      const xi = -0.25 * cw - GAP;
+      xInitialRef.current = xi;
+      if (!pendingReset.current) x.set(xi);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [x]);
+
+  useLayoutEffect(() => {
+    if (pendingReset.current) {
+      pendingReset.current = false;
+      x.set(xInitialRef.current);
+    }
+  });
+
+  // All slides left (right-to-left direction)
+  const goNext = useCallback(async () => {
     if (isAnimating) return;
     setIsAnimating(true);
+    const cw = cardWidthRef.current;
+    await animate(x, xInitialRef.current - (cw + GAP), { duration: 0.5, ease: "easeInOut" });
+    pendingReset.current = true;
     setCurrent((p) => (p + 1) % total);
-    setTimeout(() => setIsAnimating(false), 400);
-  }, [isAnimating, total]);
+    setIsAnimating(false);
+  }, [isAnimating, total, x]);
 
-  const goPrev = useCallback(() => {
+  // Slides right (prev direction)
+  const goPrev = useCallback(async () => {
     if (isAnimating) return;
     setIsAnimating(true);
+    const cw = cardWidthRef.current;
+    await animate(x, xInitialRef.current + (cw + GAP), { duration: 0.5, ease: "easeInOut" });
+    pendingReset.current = true;
     setCurrent((p) => (p - 1 + total) % total);
-    setTimeout(() => setIsAnimating(false), 400);
-  }, [isAnimating, total]);
+    setIsAnimating(false);
+  }, [isAnimating, total, x]);
 
   useEffect(() => {
     if (isPaused) return;
@@ -67,40 +108,24 @@ export default function Testimonials() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
         >
-          {/* Three-column: narrow peek | dominant center | narrow peek */}
-          <div className="grid grid-cols-[100px_1fr_100px] gap-4 overflow-hidden items-start">
-
-            {/* Left peek — shows right edge of previous card */}
-            <div className="overflow-hidden">
-              <div className="flex justify-end">
-                <div className="w-96 shrink-0 opacity-35 pointer-events-none select-none">
-                  <TestimonialCard testimonial={slides[0]} active={false} />
+          {/* Sliding track — overflow-hidden clips the side peeks */}
+          <div
+            ref={containerRef}
+            className="relative overflow-hidden"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            <motion.div className="flex" style={{ x, gap: GAP }}>
+              {slides.map((t, i) => (
+                <div
+                  key={`${current}-${i}`}
+                  style={{ width: `${CARD_RATIO * 100}%`, flexShrink: 0 }}
+                >
+                  <TestimonialCard testimonial={t} active={i === 1} />
                 </div>
-              </div>
-            </div>
-
-            {/* Center — active card with crossfade */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-              >
-                <TestimonialCard testimonial={slides[1]} active />
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Right peek — shows left edge of next card */}
-            <div className="overflow-hidden">
-              <div className="w-96 shrink-0 opacity-35 pointer-events-none select-none">
-                <TestimonialCard testimonial={slides[2]} active={false} />
-              </div>
-            </div>
+              ))}
+            </motion.div>
           </div>
 
           {/* Navigation */}
