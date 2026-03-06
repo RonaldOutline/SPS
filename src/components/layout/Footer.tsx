@@ -65,13 +65,13 @@ export default function Footer() {
               </h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-2.5">
-                  <MapPin className="w-4 h-4 text-accent-primary shrink-0 mt-0.5" />
+                  <MapPin className="w-4 h-4 text-white shrink-0 mt-0.5" />
                   <span className="text-slate-400 text-sm">
                     {FOOTER_CONTACT.address}
                   </span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Phone className="w-4 h-4 text-accent-primary shrink-0" />
+                  <Phone className="w-4 h-4 text-white shrink-0" />
                   <a
                     href={`tel:${FOOTER_CONTACT.phone}`}
                     className="text-slate-400 text-sm hover:text-white transition-colors"
@@ -80,7 +80,7 @@ export default function Footer() {
                   </a>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Mail className="w-4 h-4 text-accent-primary shrink-0" />
+                  <Mail className="w-4 h-4 text-white shrink-0" />
                   <a
                     href={`mailto:${FOOTER_CONTACT.email}`}
                     className="text-slate-400 text-sm hover:text-white transition-colors"
@@ -89,7 +89,7 @@ export default function Footer() {
                   </a>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <Clock className="w-4 h-4 text-accent-primary shrink-0 mt-0.5" />
+                  <Clock className="w-4 h-4 text-white shrink-0 mt-0.5" />
                   <div className="text-slate-400 text-sm">
                     <p>{FOOTER_CONTACT.hours}</p>
                     <p>{FOOTER_CONTACT.weekendHours}</p>

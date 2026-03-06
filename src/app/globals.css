@@ -1,13 +1,16 @@
 @import "tailwindcss";
 
 @theme {
+  --spacing: .30rem;
+  --container-2xl: 57rem;
+
   --color-bg-primary: #F8FAFE;
   --color-bg-secondary: #EEF3FA;
   --color-glass: rgba(255, 255, 255, 0.55);
   --color-glass-border: rgba(255, 255, 255, 0.25);
   --color-glass-hover: rgba(255, 255, 255, 0.7);
-  --color-accent-primary: #0EA5E9;
-  --color-accent-secondary: #06B6D4;
+  --color-accent-primary: #252a3c;
+  --color-accent-secondary: #3d4460;
   --color-text-primary: #0F172A;
   --color-text-secondary: #475569;
   --color-text-muted: #94A3B8;
@@ -100,7 +103,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Glow effect for buttons */
 .glow-primary {
-  box-shadow: 0 0 20px rgba(14, 165, 233, 0.3), 0 0 40px rgba(14, 165, 233, 0.1);
+  box-shadow: 0 0 20px rgba(37, 42, 60, 0.3), 0 0 40px rgba(37, 42, 60, 0.1);
 }
 
 /* Custom scrollbar */
@@ -235,5 +238,5 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Number counter glow */
 .stat-number {
-  text-shadow: 0 0 40px rgba(14, 165, 233, 0.15);
+  text-shadow: 0 0 40px rgba(37, 42, 60, 0.15);
 }

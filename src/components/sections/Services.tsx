@@ -28,21 +28,56 @@ const iconMap: Record<string, LucideIcon> = {
   Droplet,
 };
 
-// Per-card: height (size), padding (density), mt (vertical stagger)
-const CARD_CONFIGS = [
-  { height: "h-52", padding: "p-6",  mt: "mt-0"  },
-  { height: "h-44", padding: "p-5",  mt: "mt-8"  },
-  { height: "h-56", padding: "p-8",  mt: "mt-3"  },
-  { height: "h-48", padding: "p-6",  mt: "mt-0"  },
-  { height: "h-52", padding: "p-5",  mt: "mt-7"  },
-  { height: "h-44", padding: "p-7",  mt: "mt-1"  },
-  { height: "h-60", padding: "p-8",  mt: "mt-4"  },
-  { height: "h-48", padding: "p-5",  mt: "mt-2"  },
-];
+// Shared card base classes
+const CARD_BASE = "group relative rounded-2xl bg-white border border-gray-100 cursor-pointer overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col items-center text-center";
+
+function ServiceCard({
+  service,
+  delay,
+  isInView,
+  small = false,
+}: {
+  service: (typeof SERVICES)[number];
+  delay: number;
+  isInView: boolean;
+  small?: boolean;
+}) {
+  const Icon = iconMap[service.icon];
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 24 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay, ease: "easeOut" }}
+      className={`${CARD_BASE} ${small ? "p-4" : "p-7"}`}
+      whileHover={{ y: -4 }}
+    >
+      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-primary to-accent-secondary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+      <div className={`rounded-xl bg-accent-primary/10 flex items-center justify-center group-hover:bg-accent-primary/20 transition-colors duration-300 shrink-0 ${small ? "w-8 h-8 mb-2" : "w-11 h-11 mb-4"}`}>
+        {Icon && <Icon className={`text-accent-primary ${small ? "w-4 h-4" : "w-5 h-5"}`} />}
+      </div>
+      <h3 className={`font-outfit font-bold text-text-primary leading-snug mb-2 ${small ? "text-xs" : "text-sm"}`}>
+        {service.title}
+      </h3>
+      {!small && (
+        <span className="inline-flex items-center gap-1 text-accent-primary text-xs font-semibold mt-auto">
+          Vaata lähemalt
+          <ArrowRight className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-1" />
+        </span>
+      )}
+    </motion.article>
+  );
+}
 
 export default function Services() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-8% 0px" });
+
+  // 0–4: normal cards (3 in row 1, 2 in row 2 col 1–2)
+  // 5: Fassaadipesu (row 2 col 3, normal)
+  // 6–7: small cards stacked under Fassaadipesu
+  const main = SERVICES.slice(0, 5);
+  const fassaad = SERVICES[5];
+  const small = SERVICES.slice(6);
 
   return (
     <section id="services" className="py-20 md:py-28">
@@ -66,34 +101,22 @@ export default function Services() {
           </p>
         </motion.div>
 
-        {/* Uneven 3-column grid — narrower container makes cards squarish */}
+        {/* 3 columns × 2 rows; col 3 row 2 holds Fassaadipesu + 2 small below */}
         <div className="max-w-2xl mx-auto grid grid-cols-3 gap-3 items-start">
-          {SERVICES.map((service, i) => {
-            const Icon = iconMap[service.icon];
-            const cfg = CARD_CONFIGS[i] ?? CARD_CONFIGS[0];
-            return (
-              <motion.article
-                key={service.title}
-                initial={{ opacity: 0, y: 28 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.05 + i * 0.07, ease: "easeOut" }}
-                className={`group relative rounded-2xl bg-white border border-gray-100 cursor-pointer overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col items-center text-center ${cfg.height} ${cfg.padding} ${cfg.mt}`}
-                whileHover={{ y: -4 }}
-              >
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-primary to-accent-secondary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                <div className="w-12 h-12 rounded-2xl bg-accent-primary/10 flex items-center justify-center mb-4 group-hover:bg-accent-primary/20 transition-colors duration-300 shrink-0">
-                  {Icon && <Icon className="w-6 h-6 text-accent-primary" />}
-                </div>
-                <h3 className="font-outfit font-bold text-sm text-text-primary mb-3 leading-snug">
-                  {service.title}
-                </h3>
-                <span className="inline-flex items-center gap-1 text-accent-primary text-xs font-semibold mt-auto">
-                  Vaata lähemalt
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
-                </span>
-              </motion.article>
-            );
-          })}
+          {/* Row 1 (cols 1–3) + Row 2 cols 1–2 */}
+          {main.map((service, i) => (
+            <ServiceCard key={service.title} service={service} delay={0.05 + i * 0.07} isInView={isInView} />
+          ))}
+
+          {/* Row 2, col 3: Fassaadipesu + 2 small cards beneath */}
+          <div className="flex flex-col gap-2">
+            <ServiceCard service={fassaad} delay={0.40} isInView={isInView} />
+            <div className="grid grid-cols-2 gap-2">
+              {small.map((service, i) => (
+                <ServiceCard key={service.title} service={service} delay={0.48 + i * 0.06} isInView={isInView} small />
+              ))}
+            </div>
+          </div>
         </div>
       </Container>
     </section>
