@@ -17,19 +17,17 @@ export default function Home() {
     <>
       <Navbar />
       <FloatingCTA />
-      <div className="mt-10 rounded-[20px] overflow-hidden bg-[#f2f2f2]">
-        <main>
-          <Hero />
-          <LogoBar />
-          <Services />
-          <Industries />
-          <Testimonials />
-          <VideoBlock />
-          <Stats />
-          <ContactForm />
-        </main>
-        <Footer />
-      </div>
+      <main>
+        <Hero />
+        <LogoBar />
+        <Services />
+        <Industries />
+        <Testimonials />
+        <VideoBlock />
+        <Stats />
+        <ContactForm />
+      </main>
+      <Footer />
     </>
   );
 }
